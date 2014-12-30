@@ -3,6 +3,7 @@
 	<name>gamete</name>
 	<comment></comment>
 	<projects>
+		<project>deap_original</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
