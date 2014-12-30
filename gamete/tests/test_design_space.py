@@ -19,7 +19,9 @@ my_logger.setLevel("DEBUG")
 
 # Own
 #from deap import design_space
-import deap.design_space as ds
+#from deap_original import *
+import design_space as ds
+#from deap import *
 #import deap.mj_utilities.util_db_process as util_proc
 # from deap.mj_utilities.db_base import DB_Base
 

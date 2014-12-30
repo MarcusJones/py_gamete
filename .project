@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>deap_original</project>
+		<project>ExergyUtilities</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
