@@ -27,6 +27,8 @@ import design_space as ds
 
 # DEAP
 import deap as dp
+import deap.creator
+import deap.base
 
 #===============================================================================
 # Testing
@@ -61,12 +63,14 @@ class TestDesignSpace(unittest.TestCase):
         mapping = ds.Mapping(D1, obj_space1)
 
         # Fitness
+        #print(dp)
+        #print(dp.creator)
+        #print(dp.creator)
         fitness = dp.creator.create("Fitness", dp.base.Fitness, weights=(-1.0, -1.0), names = ('obj1', 'obj2'))
-        mapping.assign_fitness(dp.creator.Fitness)
+        mapping.assign_fitness(dp.base.Fitness)
 
         #print(mapping.design_space.individual)
-        raise
-        mapping.assign_individual()
+        #mapping.assign_individual()
         mapping.get_random_population(20)
         
         print(mapping.individual)
