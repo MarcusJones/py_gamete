@@ -187,36 +187,17 @@ class Objective(DB_Base):
         self.name = name
         self.goal = goal
 
-class ObjectiveSpace(object):
-    def __init__(self, objectives):
-        objective_names = [obj.name for obj in objectives]
-        objective_goals = [obj.goal for obj in objectives]
-        
-        assert not isinstance(objective_names, basestring)
-        assert not isinstance(objective_goals, basestring)
-        assert(type(objective_names) == list or type(objective_names) == tuple)
-        assert(type(objective_goals) == list or type(objective_names) == tuple)
-        assert(len(objective_names) == len(objective_goals))
-        for obj in objective_names:
-            assert obj not in  ["hash", "start", "finish"]
-
-        #for goal in objective_goals:
-        #    assert(goal == "Min" or goal == "Max")
-
-        self.objective_names = objective_names
-        self.objective_goals = objective_goals
-        logging.debug("Created {}".format(self))
-
-    # Information about the space -------------
-    def __str__(self):
-        return "ObjectiveSpace: {} Dimensions : {}".format(self.dimension,zip(self.objective_names,self.objective_goals))
-
-    @property
-    def dimension(self):
-        return len(self.objective_names)
-
 class Fitness(object):
-    """The fitness is a measure of quality of a solution. If *values* are
+    """
+    ***
+    COPIED FROM DEAP 
+    06JAN2015
+    
+    Modified:
+    Names are hardcoded as an attribute
+    ***
+    
+    The fitness is a measure of quality of a solution. If *values* are
     provided as a tuple, the fitness is initalized using those values,
     otherwise it is empty (or invalid).
     
@@ -240,7 +221,7 @@ class Fitness(object):
     
     weights = None
     """The weights are used in the fitness comparison. They are shared among
-    all fitnesses of the same type. When subclassing :class:`fitness`, the
+    all fitnesses of the same type. When subclassing :class:`Fitness`, the
     weights must be defined as a tuple where each element is associated to an
     objective. A negative weight element corresponds to the minimization of
     the associated objective and positive weight to the maximization.
@@ -249,7 +230,7 @@ class Fitness(object):
         If weights is not defined during subclassing, the following error will 
         occur at instantiation of a subclass fitness object: 
         
-        ``TypeError: Can't instantiate abstract <class fitness[...]> with
+        ``TypeError: Can't instantiate abstract <class Fitness[...]> with
         abstract attribute weights.``
     """
     
@@ -262,28 +243,23 @@ class Fitness(object):
     attribute of the fitness used in the comparison operators.
     """
     
-    def __init__(self, values=()):
-        if self.weights is None:
-            raise TypeError("Can't instantiate abstract %r with abstract "
-                "attribute weights." % (self.__class__))
-        
-        if not isinstance(self.weights, Sequence):
-            raise TypeError("Attribute weights of %r must be a sequence." 
-                % self.__class__)
-        
+    def __init__(self, weights, names, values=()):
+#         if self.weights is None:
+#             raise TypeError("Can't instantiate abstract %r with abstract "
+#                 "attribute weights." % (self.__class__))
+#         
+#         if not isinstance(self.weights, Sequence):
+#             raise TypeError("Attribute weights of %r must be a sequence." 
+#                 % self.__class__)
+#         
+        self.weights = weights
+        self.names = names
         if len(values) > 0:
             self.values = values
-        
-        #logging.debug("New fitness {}".format(self))
-        
+
     def getValues(self):
-        try:
-            result = tuple(map(truediv, self.wvalues, self.weights))
-        except:
-            print("wvalues: {} weights: {}".format(self.wvalues, self.weights))
-            raise
-        return result
-    
+        return tuple(map(truediv, self.wvalues, self.weights))
+            
     def setValues(self, values):
         try:
             self.wvalues = tuple(map(mul, values, self.weights))
@@ -299,7 +275,7 @@ class Fitness(object):
         self.wvalues = ()
 
     values = property(getValues, setValues, delValues,
-        ("fitness values. Use directly ``individual.fitness.values = values`` "
+        ("Fitness values. Use directly ``individual.fitness.values = values`` "
          "in order to set the fitness and ``del individual.fitness.values`` "
          "in order to clear (invalidate) the fitness. The (unweighted) fitness "
          "can be directly accessed via ``individual.fitness.values``."))
@@ -359,13 +335,44 @@ class Fitness(object):
         return copy_
 
     def __str__(self):
-        """Return the values of the fitness object."""
-        return str(self.values if self.valid else "EMPTY FITNESS")
+        """Return the values of the Fitness object."""
+        return str(self.values if self.valid else tuple())
 
     def __repr__(self):
         """Return the Python code to build a copy of the object."""
         return "%s.%s(%r)" % (self.__module__, self.__class__.__name__,
             self.values if self.valid else tuple())
+
+
+
+class ObjectiveSpace(object):
+    def __init__(self, objectives):
+        objective_names = [obj.name for obj in objectives]
+        objective_goals = [obj.goal for obj in objectives]
+        
+        assert not isinstance(objective_names, basestring)
+        assert not isinstance(objective_goals, basestring)
+        assert(type(objective_names) == list or type(objective_names) == tuple)
+        assert(type(objective_goals) == list or type(objective_names) == tuple)
+        assert(len(objective_names) == len(objective_goals))
+        for obj in objective_names:
+            assert obj not in  ["hash", "start", "finish"]
+
+        #for goal in objective_goals:
+        #    assert(goal == "Min" or goal == "Max")
+
+        self.objective_names = objective_names
+        self.objective_goals = objective_goals
+        logging.debug("Created {}".format(self))
+
+    # Information about the space -------------
+    def __str__(self):
+        return "ObjectiveSpace: {} Dimensions : {}".format(self.dimension,zip(self.objective_names,self.objective_goals))
+
+    @property
+    def dimension(self):
+        return len(self.objective_names)
+
 
 
 #--- Design space
@@ -778,7 +785,7 @@ class Individual(list):
     Each gene is an instance of the Variable class
     The individual class inherits list (slicing, assignment, mutability, etc.)
     """
-    def __init__(self, chromosome, fitness):
+    def __init__(self, chromosome):
         
         for val in chromosome:
             assert type(val) == Allele
@@ -792,10 +799,10 @@ class Individual(list):
                 list_items.append(gene.val_str)
             else:
                 raise Exception("{}".format(gene.vtype))
-        super(individual, self).__init__(list_items)
+        super(Individual, self).__init__(list_items)
         
         self.chromosome = chromosome
-        self.fitness = fitness
+       # self.fitness = fitness
         
         
         self.start_time = None
@@ -863,6 +870,7 @@ class Individual(list):
     #    return(self.__str__())
     
     def __str__(self):
+        #string = 
         return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]), self.fitness)
 
     def update(self):
@@ -888,12 +896,13 @@ class Individual(list):
 
 #--- Evolution
 class Mapping(object):
-    def __init__(self, design_space, objective_space):
+    def __init__(self, design_space, objective_space, individual):
         """
         """
         
         self.design_space = design_space
         self.objective_space = objective_space
+        self.individual = individual
         logging.info(self)
 
     def __str__(self):
@@ -901,6 +910,8 @@ class Mapping(object):
                                                                   self.objective_space.dimension)
     #---Assignment
     def assign_individual(self, Individual):
+        raise Exception("Obselete")
+
         self.individual = Individual
         logging.info("This mapping will produce individuals of class {}".format(Individual.__name__))
 
@@ -917,6 +928,7 @@ class Mapping(object):
                      )
 
     def assign_fitness(self, fitness):
+        raise Exception("Obselete")
         self.fitness = fitness
         logging.info("This mapping will produce fitness of class {}".format(fitness.__name__))
     
@@ -929,9 +941,8 @@ class Mapping(object):
         for var in self.design_space.basis_set:
             this_var = var.return_random_allele()
             chromosome.append(this_var)
-
+        
         this_ind = self.individual(chromosome=chromosome, 
-                                    fitness=self.fitness()
                                     )
         #this_ind = this_ind.init_life_cycle()
         
@@ -941,12 +952,12 @@ class Mapping(object):
         
         return this_ind
 
-    def get_random_population(self,pop_size):
+    def get_random_population(self, pop_size, flg_verbose = False):
         """Call get_random_mapping n times to generate a list of individuals
         """
         indiv_list = list()
         for idx in range(pop_size):
-            indiv_list.append(self.get_random_mapping())
+            indiv_list.append(self.get_random_mapping(flg_verbose))
 
         logging.info("Retrieved {} random mappings from a space of {} elements".format(pop_size, self.design_space.get_cardinality()))
 

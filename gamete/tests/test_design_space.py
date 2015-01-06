@@ -29,14 +29,14 @@ import design_space as ds
 import deap as dp
 import deap.creator
 import deap.base
-
+import sqlalchemy as sa
 #===============================================================================
 # Testing
 #===============================================================================
 class TestDesignSpace(unittest.TestCase):
     def setUp(self):
         pass
-
+    
     def test010_get_pop(self):
         print("**** TEST {} ****".format(get_self()))
         
@@ -44,151 +44,80 @@ class TestDesignSpace(unittest.TestCase):
         BOUND_LOW, BOUND_UP = 0.0, 1.0
         BOUND_LOW_STR, BOUND_UP_STR = '0.0', '.2'
         RES_STR = '0.10'
-       
-        # Create DSpace
+        
+        #--- Variables
         basis_variables = list()
         for i in range(NDIM):
-            basis_variables.append(ds.Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR))
-
+            this_var = ds.Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR)
+            basis_variables.append(this_var)
+            
+        #--- Design space
         thisDspace = ds.DesignSpace(basis_variables)
         D1 = thisDspace
         
-        # Create OSpace
+        #--- Objective space
         obj1 = ds.Objective('obj1', 'Max')
         obj2 = ds.Objective('obj2', 'Min')
         objs = [obj1, obj2]
         obj_space1 = ds.ObjectiveSpace(objs)
 
-        # Mapping
-        mapping = ds.Mapping(D1, obj_space1)
+        #--- Fitness
+        fitness = ds.Fitness
+        #((-1.0, -1.0), ('obj1', 'obj2'))
 
-        # Fitness
-        #print(dp)
-        #print(dp.creator)
-        #print(dp.creator)
-        fitness = dp.creator.create("Fitness", dp.base.Fitness, weights=(-1.0, -1.0), names = ('obj1', 'obj2'))
-        mapping.assign_fitness(dp.base.Fitness)
+        #--- Mapping
+        dp.creator.create("FitnessMin", dp.base.Fitness, weights=(-1.0, -1.0))
+        print(dp.creator.FitnessMin)
+        dp.creator.create("Individual", ds.Individual, fitness = dp.creator.FitnessMin)
+        print(dp.creator.Individual)
 
-        #print(mapping.design_space.individual)
-        #mapping.assign_individual()
-        mapping.get_random_population(20)
-        
-        print(mapping.individual)
-        
-        # Creator
-        print(mapping)
-        print(mapping.fitness)
-        #print(mapping.)
-        raise
+        mapping = ds.Mapping(D1, obj_space1, dp.creator.Individual)
 
-        
-        mapping.assign_fitness(fitness)
-        #mapping.assign_individual(ds.Individual)
-        #mapping.assign_evaluator(algorithm['life_cycle'])
-        #mapping.get_random_mapping(flg_verbose=True)
-        
-        #mapping.get_global_search()
-        
-        #creator.create("FitnessMin", base.fitness, weights=(-1.0, -1.0))
-        
-        #self.mapping.assign_individual(Individual)
-        #self.mapping.assign_fitness(creator.FitnessMin)
-        
-        #my_logger.setLevel("DEBUG")
-
-
-class MappingPopulationTests(unittest.TestCase):
-    def setUp(self):
-        #print "**** TEST {} ****".format(whoami())
-        my_logger.setLevel("CRITICAL")
-        
-        NDIM = 3
-        BOUND_LOW, BOUND_UP = 0.0, 1.0
-        BOUND_LOW_STR, BOUND_UP_STR = '0.0', '.2'
-        RES_STR = '0.10'
-       
-        # Create DSpace
-        basis_variables = list()
-        for i in range(NDIM):
-            basis_variables.append(Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR))
-        
-
-        thisDspace = DesignSpace(basis_variables)
-        D1 = thisDspace
-        
-        # Create OSpace
-        obj1 = Objective('obj1', 'Max')
-        obj2 = Objective('obj2', 'Min')
-        objs = [obj1, obj2]
-        obj_space1 = ObjectiveSpace(objs)
-
-        self.mapping = Mapping(D1, obj_space1)
-        
-        creator.create("FitnessMin", base.fitness, weights=(-1.0, -1.0))
-        
-        self.mapping.assign_individual(Individual)
-        self.mapping.assign_fitness(creator.FitnessMin)
-        
-        my_logger.setLevel("DEBUG")
-
-    def test010_get_pop(self):
-        print("**** TEST {} ****".format(whoami()))
-        print(self.mapping)
-        with LoggerCritical():
-            pop = self.mapping.get_random_population(20)
-            
-        print(pop)
-        print(pop[0])
-        print()
-        print(type(pop[0][0]),pop[0][0])
-        this_ind = self.mapping.get_random_mapping()
-        print(this_ind)
-        print()
-        print(type(this_ind[0]),this_ind[0])
+        mapping.get_random_population(20, flg_verbose = True)
 
 class MappingPopulationTests2(unittest.TestCase):
     def setUp(self):
-        #print "**** TEST {} ****".format(whoami())
-        myLogger.setLevel("CRITICAL")
-
+        my_logger.setLevel("CRITICAL")
+        
+        #--- Engine
         self.engine = sa.create_engine('sqlite:///:memory:', echo=0)
         #engine = sa.create_engine('sqlite:///{}'.format(self.path_new_sql), echo=self.ECHO_ON)
         Session = sa.orm.sessionmaker(bind=self.engine)
         self.session = Session()
         logging.debug("Initialized session {} with SQL alchemy version: {}".format(self.engine, sa.__version__))
+        print("**** TEST {} ****".format(get_self()))
         
         NDIM = 3
         BOUND_LOW, BOUND_UP = 0.0, 1.0
         BOUND_LOW_STR, BOUND_UP_STR = '0.0', '.2'
         RES_STR = '0.10'
-       
-        # Create DSpace
+        
+        #--- Variables
         basis_variables = list()
         for i in range(NDIM):
-            basis_variables.append(Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR))
-        for var in basis_variables:
-            self.session.add_all(var.variable_tuple)        
-
-        thisDspace = DesignSpace(basis_variables)
+            this_var = ds.Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR)
+            basis_variables.append(this_var)
+            
+        #--- Design space
+        thisDspace = ds.DesignSpace(basis_variables)
         D1 = thisDspace
         
-        # Create OSpace
-        obj1 = Objective('obj1', 'Max')
-        obj2 = Objective('obj2', 'Min')
+        #--- Objective space
+        obj1 = ds.Objective('obj1', 'Max')
+        obj2 = ds.Objective('obj2', 'Min')
         objs = [obj1, obj2]
-        obj_space1 = ObjectiveSpace(objs)
-        for obj in objs:
-            self.session.add(obj)
-            
-        self.mapping = Mapping(D1, obj_space1)
-        
-        creator.create("FitnessMin", base.fitness, weights=(-1.0, -1.0))
-        
-        self.mapping.assign_individual(Individual)
-        self.mapping.assign_fitness(creator.FitnessMin)
+        obj_space1 = ds.ObjectiveSpace(objs)
 
-        myLogger.setLevel("DEBUG")
-        
+        #--- Fitness
+        fitness = ds.Fitness
+
+        #--- Mapping
+        dp.creator.create("FitnessMin", dp.base.Fitness, weights=(-1.0, -1.0))
+        dp.creator.create("Individual", ds.Individual, fitness = dp.creator.FitnessMin)
+
+        self.mapping = ds.Mapping(D1, obj_space1, dp.creator.Individual)
+    
+    def test010_send_pop_DB(self):
         DB_Base.metadata.create_all(self.engine)    
         self.session.add_all(basis_variables)        
         self.session.commit()
@@ -241,16 +170,3 @@ class MappingPopulationTests2(unittest.TestCase):
             #raise
             #print(res)
             
-
-
-
-class DesignSpaceBasicTests(unittest.TestCase):
-    def setUp(self):
-        #print "**** TEST {} ****".format(get_self())
-        myLogger.setLevel("CRITICAL")
-        print("Setup")
-        myLogger.setLevel("DEBUG")
-
-    def test010_SimpleCreation(self):
-        print("**** TEST {} ****".format(get_self()))
-        
