@@ -778,16 +778,16 @@ class DesignSpace(object):
         """
         return len(self.basis_set)
 
-
-
 class Individual(list):
-    """An individual is composed of a list of alleles (chromosome)
-    Each gene is an instance of the Variable class
-    The individual class inherits list (slicing, assignment, mutability, etc.)
+    """An individual is composed of a list of alleles (chromosome).
+    Each gene is an instance of the Variable class.
+    The individual class inherits list (slicing, assignment, mutability, etc.).
     
     :param chromosome: list of allele
     .. py:classmethod:: asdf
     .. py:attribute:: name
+    
+    
     
     
     """
