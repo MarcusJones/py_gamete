@@ -77,6 +77,8 @@ class TestDesignSpace(unittest.TestCase):
 
 class MappingPopulationTests2(unittest.TestCase):
     def setUp(self):
+        print("**** TEST {} ****".format(get_self()))
+        
         my_logger.setLevel("CRITICAL")
         
         #--- Engine
@@ -84,8 +86,7 @@ class MappingPopulationTests2(unittest.TestCase):
         #engine = sa.create_engine('sqlite:///{}'.format(self.path_new_sql), echo=self.ECHO_ON)
         Session = sa.orm.sessionmaker(bind=self.engine)
         self.session = Session()
-        logging.debug("Initialized session {} with SQL alchemy version: {}".format(self.engine, sa.__version__))
-        print("**** TEST {} ****".format(get_self()))
+        logging.critical("Initialized session {} with SQL alchemy version: {}".format(self.engine, sa.__version__))
         
         NDIM = 3
         BOUND_LOW, BOUND_UP = 0.0, 1.0
@@ -116,7 +117,8 @@ class MappingPopulationTests2(unittest.TestCase):
         dp.creator.create("Individual", ds.Individual, fitness = dp.creator.FitnessMin)
 
         self.mapping = ds.Mapping(D1, obj_space1, dp.creator.Individual)
-    
+        
+        
     def test010_send_pop_DB(self):
         DB_Base.metadata.create_all(self.engine)    
         self.session.add_all(basis_variables)        

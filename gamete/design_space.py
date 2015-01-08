@@ -784,6 +784,12 @@ class Individual(list):
     """An individual is composed of a list of alleles (chromosome)
     Each gene is an instance of the Variable class
     The individual class inherits list (slicing, assignment, mutability, etc.)
+    
+    :param chromosome: list of allele
+    .. py:classmethod:: asdf
+    .. py:attribute:: name
+    
+    
     """
     def __init__(self, chromosome):
         
@@ -811,8 +817,9 @@ class Individual(list):
         
         #logging.debug("individual instantiated; {}".format(self))
         
-    @property    
+    @property
     def hash(self):
+        """This is the unique identifier for this individual. """ 
         return self.__hash__()
     
     
@@ -852,14 +859,13 @@ class Individual(list):
                 
     def __hash__(self):
         """This defines the uniqueness of the individual
-        The ID of an individual could be, for example, the string composed of the variable vectors
+        An individual can be identified by the combination of its genes, just as in nature. 
+        For example, the string composed of the individual variable vectors. 
         But this would be expensive and complicated to store in a database
-        The hash compresses this information to an integer value which should have no collisions
+        The hash compresses this information to an integer value. 
         """
-        
         index_list = [allele.index for allele in self.chromosome]
         return hash(tuple(index_list))
-        #return hash(tuple(zip(self[:])))
 
     def __eq__(self,other):
         if self.hash == other.hash:
@@ -870,7 +876,6 @@ class Individual(list):
     #    return(self.__str__())
     
     def __str__(self):
-        #string = 
         return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]), self.fitness)
 
     def update(self):
