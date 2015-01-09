@@ -1,0 +1,698 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gamete package &mdash; gamete 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="gamete 0.1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">gamete 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gamete-package">
+<h1>gamete package<a class="headerlink" href="#gamete-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_algorithms.html">gamete.mj_algorithms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_algorithms.html#gamete-mj-algorithms-mj-tools-module">gamete.mj_algorithms.mj_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_algorithms.html#gamete-mj-algorithms-nsga2-module">gamete.mj_algorithms.nsga2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_algorithms.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_benchmark_exe.html">gamete.mj_benchmark_exe package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_benchmark_exe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_benchmark_exe.html#module-gamete.mj_benchmark_exe.zdt1_rw">gamete.mj_benchmark_exe.zdt1_rw module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_benchmark_exe.html#module-gamete.mj_benchmark_exe">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_evaluators.html">gamete.mj_evaluators package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_evaluators.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_evaluators.html#gamete-mj-evaluators-evaluators-module">gamete.mj_evaluators.evaluators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_evaluators.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_operators.html">gamete.mj_operators package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_operators.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_operators.html#module-gamete.mj_operators.mj_crossover">gamete.mj_operators.mj_crossover module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_operators.html#module-gamete.mj_operators.mj_mutation">gamete.mj_operators.mj_mutation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_operators.html#module-gamete.mj_operators">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_projects.html">gamete.mj_projects package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_projects.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_projects.html#gamete-mj-projects-run-proj-module">gamete.mj_projects.run_proj module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_projects.html#module-gamete.mj_projects">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_simple_exe.html">gamete.mj_simple_exe package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_simple_exe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_simple_exe.html#module-gamete.mj_simple_exe.hello">gamete.mj_simple_exe.hello module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_simple_exe.html#module-gamete.mj_simple_exe.read_args">gamete.mj_simple_exe.read_args module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_simple_exe.html#module-gamete.mj_simple_exe">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.mj_utilities.html">gamete.mj_utilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_utilities.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_utilities.html#module-gamete.mj_utilities.db_base">gamete.mj_utilities.db_base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_utilities.html#gamete-mj-utilities-util-db-process-module">gamete.mj_utilities.util_db_process module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_utilities.html#gamete-mj-utilities-util-general-module">gamete.mj_utilities.util_general module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_utilities.html#module-gamete.mj_utilities.util_graphics">gamete.mj_utilities.util_graphics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.mj_utilities.html#module-gamete.mj_utilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gamete.tests.html">gamete.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gamete.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.tests.html#gamete-tests-test-creator-module">gamete.tests.test_creator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.tests.html#gamete-tests-test-design-space-module">gamete.tests.test_design_space module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.tests.html#gamete-tests-test-project-module">gamete.tests.test_project module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamete.tests.html#module-gamete.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="gamete-base-module">
+<h2>gamete.base module<a class="headerlink" href="#gamete-base-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gamete.design_space">
+<span id="gamete-design-space-module"></span><h2>gamete.design_space module<a class="headerlink" href="#module-gamete.design_space" title="Permalink to this headline">¶</a></h2>
+<p>This module does stuff
+Etc.</p>
+<dl class="class">
+<dt id="gamete.design_space.Allele">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Allele</tt><big>(</big><em>name</em>, <em>locus</em>, <em>vtype</em>, <em>value</em>, <em>index</em>, <em>ordered</em><big>)</big><a class="headerlink" href="#gamete.design_space.Allele" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Init Attributes
+name - A label for the variable. Required.
+locus -
+variable_tuple - The k-Tuple of possible values
+ordered= True - Flag</p>
+<p>Internal Attributes
+index = None - The corresponding index of the generated value
+value = The current value of the variable, defined by the index</p>
+<dl class="method">
+<dt id="gamete.design_space.Allele.this_val_str">
+<tt class="descname">this_val_str</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Allele.this_val_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>String for current name and current value</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Allele.val_str">
+<tt class="descname">val_str</tt><a class="headerlink" href="#gamete.design_space.Allele.val_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.DesignSpace">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">DesignSpace</tt><big>(</big><em>basis_set</em><big>)</big><a class="headerlink" href="#gamete.design_space.DesignSpace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="gamete.design_space.DesignSpace.get_cardinality">
+<tt class="descname">get_cardinality</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.DesignSpace.get_cardinality" title="Permalink to this definition">¶</a></dt>
+<dd><p>The cardinality of a set is a measure of the &#8220;number of elements of the set&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.DesignSpace.get_dimension">
+<tt class="descname">get_dimension</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.DesignSpace.get_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>The definition of dimension of a space is the number of vectors in a basis
+The dimension of a vector space is the number of vectors in any basis for the space</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.DesignSpace.print_design_space">
+<tt class="descname">print_design_space</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.DesignSpace.print_design_space" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.Fitness">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Fitness</tt><big>(</big><em>weights</em>, <em>names</em>, <em>values=()</em><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>*
+COPIED FROM DEAP
+06JAN2015</p>
+<p>Modified:
+Names are hardcoded as an attribute
+<a href="#id3"><span class="problematic" id="id4">**</span></a><a href="#id5"><span class="problematic" id="id6">*</span></a></p>
+<p>The fitness is a measure of quality of a solution. If <em>values</em> are
+provided as a tuple, the fitness is initalized using those values,
+otherwise it is empty (or invalid).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> &#8211; The initial values of the fitness as a tuple, optional.</td>
+</tr>
+</tbody>
+</table>
+<p>Fitnesses may be compared using the <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt>,
+<tt class="docutils literal"><span class="pre">!=</span></tt>. The comparison of those operators is made lexicographically.
+Maximization and minimization are taken care off by a multiplication
+between the <a class="reference internal" href="#gamete.design_space.Fitness.weights" title="gamete.design_space.Fitness.weights"><tt class="xref py py-attr docutils literal"><span class="pre">weights</span></tt></a> and the fitness <a class="reference internal" href="#gamete.design_space.Fitness.values" title="gamete.design_space.Fitness.values"><tt class="xref py py-attr docutils literal"><span class="pre">values</span></tt></a>. The comparison
+can be made between fitnesses of different size, if the fitnesses are
+equal until the extra elements, the longer fitness will be superior to the
+shorter.</p>
+<p>Different types of fitnesses are created in the <em class="xref std std-ref">creating-types</em>
+tutorial.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When comparing fitness values that are <strong>minimized</strong>, <tt class="docutils literal"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">b</span></tt> will
+return <tt class="xref py py-data docutils literal"><span class="pre">True</span></tt> if <em>a</em> is <strong>smaller</strong> than <em>b</em>.</p>
+</div>
+<dl class="method">
+<dt id="gamete.design_space.Fitness.__deepcopy__">
+<tt class="descname">__deepcopy__</tt><big>(</big><em>memo</em><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.__deepcopy__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace the basic deepcopy function with a faster one.</p>
+<p>It assumes that the elements in the <a class="reference internal" href="#gamete.design_space.Fitness.values" title="gamete.design_space.Fitness.values"><tt class="xref py py-attr docutils literal"><span class="pre">values</span></tt></a> tuple are
+immutable and the fitness does not contain any other object
+than <a class="reference internal" href="#gamete.design_space.Fitness.values" title="gamete.design_space.Fitness.values"><tt class="xref py py-attr docutils literal"><span class="pre">values</span></tt></a> and <a class="reference internal" href="#gamete.design_space.Fitness.weights" title="gamete.design_space.Fitness.weights"><tt class="xref py py-attr docutils literal"><span class="pre">weights</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Fitness.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Python code to build a copy of the object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Fitness.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the values of the Fitness object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Fitness.delValues">
+<tt class="descname">delValues</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.delValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Fitness.dominates">
+<tt class="descname">dominates</tt><big>(</big><em>other</em>, <em>obj=slice(None</em>, <em>None</em>, <em>None)</em><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.dominates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if each objective of <em>self</em> is not strictly worse than
+the corresponding objective of <em>other</em> and at least one objective is
+strictly better.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; Slice indicating on which objectives the domination is
+tested. The default value is <cite>slice(None)</cite>, representing
+every objectives.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Fitness.getValues">
+<tt class="descname">getValues</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.getValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Fitness.setValues">
+<tt class="descname">setValues</tt><big>(</big><em>values</em><big>)</big><a class="headerlink" href="#gamete.design_space.Fitness.setValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Fitness.valid">
+<tt class="descname">valid</tt><a class="headerlink" href="#gamete.design_space.Fitness.valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assess if a fitness is valid or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Fitness.values">
+<tt class="descname">values</tt><a class="headerlink" href="#gamete.design_space.Fitness.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fitness values. Use directly <tt class="docutils literal"><span class="pre">individual.fitness.values</span> <span class="pre">=</span> <span class="pre">values</span></tt> in order to set the fitness and <tt class="docutils literal"><span class="pre">del</span> <span class="pre">individual.fitness.values</span></tt> in order to clear (invalidate) the fitness. The (unweighted) fitness can be directly accessed via <tt class="docutils literal"><span class="pre">individual.fitness.values</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Fitness.weights">
+<tt class="descname">weights</tt><em class="property"> = None</em><a class="headerlink" href="#gamete.design_space.Fitness.weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>The weights are used in the fitness comparison. They are shared among
+all fitnesses of the same type. When subclassing <a class="reference internal" href="#gamete.design_space.Fitness" title="gamete.design_space.Fitness"><tt class="xref py py-class docutils literal"><span class="pre">Fitness</span></tt></a>, the
+weights must be defined as a tuple where each element is associated to an
+objective. A negative weight element corresponds to the minimization of
+the associated objective and positive weight to the maximization.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If weights is not defined during subclassing, the following error will
+occur at instantiation of a subclass fitness object:</p>
+<p class="last"><tt class="docutils literal"><span class="pre">TypeError:</span> <span class="pre">Can't</span> <span class="pre">instantiate</span> <span class="pre">abstract</span> <span class="pre">&lt;class</span> <span class="pre">Fitness[...]&gt;</span> <span class="pre">with</span>
+<span class="pre">abstract</span> <span class="pre">attribute</span> <span class="pre">weights.</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Fitness.wvalues">
+<tt class="descname">wvalues</tt><em class="property"> = ()</em><a class="headerlink" href="#gamete.design_space.Fitness.wvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the weighted values of the fitness, the multiplication with the
+weights is made when the values are set via the property <a class="reference internal" href="#gamete.design_space.Fitness.values" title="gamete.design_space.Fitness.values"><tt class="xref py py-attr docutils literal"><span class="pre">values</span></tt></a>.
+Multiplication is made on setting of the values for efficiency.</p>
+<p>Generally it is unnecessary to manipulate wvalues as it is an internal
+attribute of the fitness used in the comparison operators.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.Generation">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Generation</tt><big>(</big><em>gen</em>, <em>individual</em><big>)</big><a class="headerlink" href="#gamete.design_space.Generation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></tt></p>
+<dl class="attribute">
+<dt id="gamete.design_space.Generation.gen">
+<tt class="descname">gen</tt><a class="headerlink" href="#gamete.design_space.Generation.gen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Generation.id">
+<tt class="descname">id</tt><a class="headerlink" href="#gamete.design_space.Generation.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Generation.individual">
+<tt class="descname">individual</tt><a class="headerlink" href="#gamete.design_space.Generation.individual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.Individual">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Individual</tt><big>(</big><em>chromosome</em><big>)</big><a class="headerlink" href="#gamete.design_space.Individual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></p>
+<p>An individual is composed of a list of alleles (chromosome).
+Each gene is an instance of the Variable class.
+The individual class inherits list (slicing, assignment, mutability, etc.).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chromosome</strong> &#8211; list of allele</td>
+</tr>
+</tbody>
+</table>
+<dl class="classmethod">
+<dt id="gamete.design_space.Individual.asdf">
+<em class="property">classmethod </em><tt class="descname">asdf</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Individual.asdf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Individual.name">
+<tt class="descname">name</tt><a class="headerlink" href="#gamete.design_space.Individual.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Individual.__hash__">
+<tt class="descname">__hash__</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Individual.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This defines the uniqueness of the individual
+An individual can be identified by the combination of its genes, just as in nature.
+For example, the string composed of the individual variable vectors.
+But this would be expensive and complicated to store in a database
+The hash compresses this information to an integer value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Individual.clone">
+<tt class="descname">clone</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Individual.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Individual.hash">
+<tt class="descname">hash</tt><a class="headerlink" href="#gamete.design_space.Individual.hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the unique identifier for this individual.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Individual.re_init">
+<tt class="descname">re_init</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Individual.re_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Individual.recreate_fitness">
+<tt class="descname">recreate_fitness</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Individual.recreate_fitness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Individual.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Individual.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check on the status of the process, update if necessary</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.Mapping">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Mapping</tt><big>(</big><em>design_space</em>, <em>objective_space</em>, <em>individual</em><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="gamete.design_space.Mapping.assign_evaluator">
+<tt class="descname">assign_evaluator</tt><big>(</big><em>life_cycle</em><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.assign_evaluator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Mapping.assign_fitness">
+<tt class="descname">assign_fitness</tt><big>(</big><em>fitness</em><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.assign_fitness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Mapping.assign_individual">
+<tt class="descname">assign_individual</tt><big>(</big><em>Individual</em><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.assign_individual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Mapping.getHyperCorners">
+<tt class="descname">getHyperCorners</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.getHyperCorners" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Mapping.get_global_search">
+<tt class="descname">get_global_search</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.get_global_search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Mapping.get_random_mapping">
+<tt class="descname">get_random_mapping</tt><big>(</big><em>flg_verbose=False</em><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.get_random_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly sample all basis_set vectors, return a random variable vector</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Mapping.get_random_population">
+<tt class="descname">get_random_population</tt><big>(</big><em>pop_size</em>, <em>flg_verbose=False</em><big>)</big><a class="headerlink" href="#gamete.design_space.Mapping.get_random_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call get_random_mapping n times to generate a list of individuals</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.Objective">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Objective</tt><big>(</big><em>name</em>, <em>goal</em><big>)</big><a class="headerlink" href="#gamete.design_space.Objective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></tt></p>
+<dl class="attribute">
+<dt id="gamete.design_space.Objective.goal">
+<tt class="descname">goal</tt><a class="headerlink" href="#gamete.design_space.Objective.goal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Objective.id">
+<tt class="descname">id</tt><a class="headerlink" href="#gamete.design_space.Objective.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Objective.name">
+<tt class="descname">name</tt><a class="headerlink" href="#gamete.design_space.Objective.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.ObjectiveSpace">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">ObjectiveSpace</tt><big>(</big><em>objectives</em><big>)</big><a class="headerlink" href="#gamete.design_space.ObjectiveSpace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="gamete.design_space.ObjectiveSpace.dimension">
+<tt class="descname">dimension</tt><a class="headerlink" href="#gamete.design_space.ObjectiveSpace.dimension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamete.design_space.Variable">
+<em class="property">class </em><tt class="descclassname">gamete.design_space.</tt><tt class="descname">Variable</tt><big>(</big><em>name</em>, <em>vtype</em>, <em>variable_tuple</em>, <em>ordered</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></tt></p>
+<p>A general variable object, inherited by specific types</p>
+<p>Init Attributes
+name - A label for the variable. Required.
+variable_tuple - The k-Tuple of possible values
+ordered= True - Flag</p>
+<p>Internal Attributes
+index = None - The corresponding index of the generated value
+value = The current value of the variable, defined by the index</p>
+<dl class="method">
+<dt id="gamete.design_space.Variable.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of possible values</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="gamete.design_space.Variable.from_range">
+<em class="property">classmethod </em><tt class="descname">from_range</tt><big>(</big><em>name</em>, <em>vtype</em>, <em>lower</em>, <em>resolution</em>, <em>upper</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.from_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init overload - easy creation from a lower to upper decimal with a step size
+Arguments are string for proper decimal handling!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.get_indexed_obj">
+<tt class="descname">get_indexed_obj</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.get_indexed_obj" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.get_new_random">
+<tt class="descname">get_new_random</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.get_new_random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new random value from all possible values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.get_random">
+<tt class="descname">get_random</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.get_random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random value from all possible values</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Variable.id">
+<tt class="descname">id</tt><a class="headerlink" href="#gamete.design_space.Variable.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.long_str">
+<tt class="descname">long_str</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.long_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print all info in variable</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Variable.name">
+<tt class="descname">name</tt><a class="headerlink" href="#gamete.design_space.Variable.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.next">
+<tt class="descname">next</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterator over tuple of values
+Ordering does not matter, will simply return values in the order of the tuple regardless</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="gamete.design_space.Variable.ordered">
+<em class="property">classmethod </em><tt class="descname">ordered</tt><big>(</big><em>name</em>, <em>vtype</em>, <em>vTuple</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.ordered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init overload - the variable is ordered (default)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.return_allele">
+<tt class="descname">return_allele</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.return_allele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.return_closest_allele">
+<tt class="descname">return_closest_allele</tt><big>(</big><em>target_value</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.return_closest_allele" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.return_random_allele">
+<tt class="descname">return_random_allele</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.return_random_allele" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random value from all possible values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.step_random">
+<tt class="descname">step_random</tt><big>(</big><em>start_index</em>, <em>step_size=1</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.step_random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step in a random direction (up or down) step_size within the possible values
+Must be ordered, otherwise this makes no sense</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamete.design_space.Variable.this_val_str">
+<tt class="descname">this_val_str</tt><big>(</big><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.this_val_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>String for current name and current value</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="gamete.design_space.Variable.unordered">
+<em class="property">classmethod </em><tt class="descname">unordered</tt><big>(</big><em>name</em>, <em>vtype</em>, <em>vTuple</em><big>)</big><a class="headerlink" href="#gamete.design_space.Variable.unordered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init overload - the variable has no ordering</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Variable.val_str">
+<tt class="descname">val_str</tt><a class="headerlink" href="#gamete.design_space.Variable.val_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Variable.value">
+<tt class="descname">value</tt><a class="headerlink" href="#gamete.design_space.Variable.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Variable.value_ORM">
+<tt class="descname">value_ORM</tt><a class="headerlink" href="#gamete.design_space.Variable.value_ORM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamete.design_space.Variable.vtype">
+<tt class="descname">vtype</tt><a class="headerlink" href="#gamete.design_space.Variable.vtype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.convert_DB_individual">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">convert_DB_individual</tt><big>(</big><em>res</em>, <em>mapping</em><big>)</big><a class="headerlink" href="#gamete.design_space.convert_DB_individual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a Results object from the database, recreate the individual object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.convert_individual_DB">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">convert_individual_DB</tt><big>(</big><em>ResultsClass</em>, <em>ind</em><big>)</big><a class="headerlink" href="#gamete.design_space.convert_individual_DB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.convert_settings">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">convert_settings</tt><big>(</big><em>table_rows</em><big>)</big><a class="headerlink" href="#gamete.design_space.convert_settings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.empty_fitness">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">empty_fitness</tt><big>(</big><em>objectiveNames</em><big>)</big><a class="headerlink" href="#gamete.design_space.empty_fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility to initialize the objective vector to NULL</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.generate_ORM_individual">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">generate_ORM_individual</tt><big>(</big><em>mapping</em><big>)</big><a class="headerlink" href="#gamete.design_space.generate_ORM_individual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.generate_chromosome">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">generate_chromosome</tt><big>(</big><em>basis_set</em><big>)</big><a class="headerlink" href="#gamete.design_space.generate_chromosome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple utility to order the values and names</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.generate_individuals_table">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">generate_individuals_table</tt><big>(</big><em>mapping</em><big>)</big><a class="headerlink" href="#gamete.design_space.generate_individuals_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="gamete.design_space.generate_variable_table_class">
+<tt class="descclassname">gamete.design_space.</tt><tt class="descname">generate_variable_table_class</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#gamete.design_space.generate_variable_table_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a helper function which dynamically creates a new ORM enabled class
+The table will hold the individual values of each variable
+individual values are stored as a string</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gamete">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gamete" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gamete package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#gamete-base-module">gamete.base module</a></li>
+<li><a class="reference internal" href="#module-gamete.design_space">gamete.design_space module</a></li>
+<li><a class="reference internal" href="#module-gamete">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/gamete.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">gamete 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Marcus Jones.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

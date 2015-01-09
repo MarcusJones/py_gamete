@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gamete.mj_operators package &mdash; gamete 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="gamete 0.1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">gamete 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gamete-mj-operators-package">
+<h1>gamete.mj_operators package<a class="headerlink" href="#gamete-mj-operators-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-gamete.mj_operators.mj_crossover">
+<span id="gamete-mj-operators-mj-crossover-module"></span><h2>gamete.mj_operators.mj_crossover module<a class="headerlink" href="#module-gamete.mj_operators.mj_crossover" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gamete.mj_operators.mj_crossover.mj_list_flip">
+<tt class="descclassname">gamete.mj_operators.mj_crossover.</tt><tt class="descname">mj_list_flip</tt><big>(</big><em>ind1</em>, <em>ind2</em>, <em>mapping</em>, <em>parameters</em>, <em>path_evolog</em><big>)</big><a class="headerlink" href="#gamete.mj_operators.mj_crossover.mj_list_flip" title="Permalink to this definition">¶</a></dt>
+<dd><p>For the length of chromosome, flip each position between <em>ind1</em> and <em>ind2</em> with probability <em>indpb</em>
+:param ind1: First individual
+:param ind2: Second individiual
+:param indpb: Probability to flip at position N
+:param path_evolog: Writes the crossover signature to log file
+:returns: ind1,ind2 with modified chromosome and fitness deleted</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gamete.mj_operators.mj_crossover.mj_cxSimulatedBinaryBounded">
+<tt class="descclassname">gamete.mj_operators.mj_crossover.</tt><tt class="descname">mj_cxSimulatedBinaryBounded</tt><big>(</big><em>ind1</em>, <em>ind2</em>, <em>mapping</em>, <em>parameters</em>, <em>path_evolog</em><big>)</big><a class="headerlink" href="#gamete.mj_operators.mj_crossover.mj_cxSimulatedBinaryBounded" title="Permalink to this definition">¶</a></dt>
+<dd><p>-Modifed from DEAP-
+Executes a simulated binary crossover that modify in-place the input
+individuals. The simulated binary crossover expects <em class="xref std std-term">sequence</em>
+individuals of floating point numbers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ind1</strong> &#8211; The first individual participating in the crossover.</li>
+<li><strong>ind2</strong> &#8211; The second individual participating in the crossover.</li>
+<li><strong>eta</strong> &#8211; =parameters[&#8216;Crowding degree&#8217;]; Crowding degree of the crossover. A high eta will produce
+children resembling to their parents, while a small eta will
+produce solutions much more different.</li>
+<li><strong>low</strong> &#8211; =mapping; A value or an <em class="xref std std-term">python:sequence</em> of values that is the lower
+bound of the search space.</li>
+<li><strong>up</strong> &#8211; =mapping; A value or an <em class="xref std std-term">python:sequence</em> of values that is the upper
+bound of the search space.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple of two individuals.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function uses the <tt class="xref py py-func docutils literal"><span class="pre">random()</span></tt> function from the python base
+<tt class="xref py py-mod docutils literal"><span class="pre">random</span></tt> module.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This implementation is similar to the one implemented in the
+original NSGA-II C code presented by Deb.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gamete.mj_operators.mj_mutation">
+<span id="gamete-mj-operators-mj-mutation-module"></span><h2>gamete.mj_operators.mj_mutation module<a class="headerlink" href="#module-gamete.mj_operators.mj_mutation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="gamete.mj_operators.mj_mutation.mj_random_jump">
+<tt class="descclassname">gamete.mj_operators.mj_mutation.</tt><tt class="descname">mj_random_jump</tt><big>(</big><em>individual</em>, <em>mapping</em>, <em>parameters</em>, <em>path_evolog</em><big>)</big><a class="headerlink" href="#gamete.mj_operators.mj_mutation.mj_random_jump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly selects a jump between <em>-jumpsize</em> and <em>+jumpsize</em> for each allele in chromosome
+Jumps that distance in the gene for each allele with probability <em>indpb</em>
+Jump is limited to min/max for each gene
+:param individual: individual
+:param mapping: Used to access the genes and the indices of the genes
+:param jumpsize: = parameters[&#8216;Jump size&#8217;] Probability to flip at position N
+:param indpb: = parameters[&#8216;Probability mutation&#8217;] Probability to jump at position N
+:param path_evolog: Writes the mutation signature to log file
+:returns: individual: Individual with mutated chromosome and deleted fitness</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gamete.mj_operators.mj_mutation.mj_mutPolynomialBounded">
+<tt class="descclassname">gamete.mj_operators.mj_mutation.</tt><tt class="descname">mj_mutPolynomialBounded</tt><big>(</big><em>individual</em>, <em>mapping</em>, <em>parameters</em>, <em>path_evolog</em><big>)</big><a class="headerlink" href="#gamete.mj_operators.mj_mutation.mj_mutPolynomialBounded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Polynomial mutation as implemented in original NSGA-II algorithm in
+C by Deb.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>individual</strong> &#8211; <em class="xref std std-term">Sequence</em> individual to be mutated.</li>
+<li><strong>eta</strong> &#8211; Crowding degree of the mutation. A high eta will produce
+a mutant resembling its parent, while a small eta will
+produce a solution much more different.</li>
+<li><strong>low</strong> &#8211; A value or a <em class="xref std std-term">python:sequence</em> of values that
+is the lower bound of the search space.</li>
+<li><strong>up</strong> &#8211; A value or a <em class="xref std std-term">python:sequence</em> of values that
+is the upper bound of the search space.</li>
+<li><strong>prob_mutate_this_allele</strong> &#8211; =parameters[&#8216;prob_mutate_this_allele&#8217;]; Probability to mutate this allele</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple of one individual.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-gamete.mj_operators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-gamete.mj_operators" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gamete.mj_operators package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-gamete.mj_operators.mj_crossover">gamete.mj_operators.mj_crossover module</a></li>
+<li><a class="reference internal" href="#module-gamete.mj_operators.mj_mutation">gamete.mj_operators.mj_mutation module</a></li>
+<li><a class="reference internal" href="#module-gamete.mj_operators">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/gamete.mj_operators.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">gamete 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Marcus Jones.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
