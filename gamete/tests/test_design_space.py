@@ -115,14 +115,17 @@ class MappingPopulationTests2(unittest.TestCase):
         #--- Mapping
         dp.creator.create("FitnessMin", dp.base.Fitness, weights=(-1.0, -1.0))
         dp.creator.create("Individual", ds.Individual, fitness = dp.creator.FitnessMin)
-
         self.mapping = ds.Mapping(D1, obj_space1, dp.creator.Individual)
         
         
-    def test010_send_pop_DB(self):
-        DB_Base.metadata.create_all(self.engine)    
-        self.session.add_all(basis_variables)        
-        self.session.commit()
+    def test010(self):
+        self.mapping.print_summary()
+        print(self.mapping.individual)
+        print(self.mapping.get_random_mapping())
+        print(self.mapping.get_random_population(20, flg_verbose = True))
+        #DB_Base.metadata.create_all(self.engine)    
+        #self.session.add_all(basis_variables)        
+        #self.session.commit()
 
 
     def test020_send_pop_DB(self):

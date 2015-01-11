@@ -373,8 +373,6 @@ class ObjectiveSpace(object):
     def dimension(self):
         return len(self.objective_names)
 
-
-
 #--- Design space
 
 class Allele(object):
@@ -816,7 +814,7 @@ class Individual(list):
         #self.hash = self.__hash__()
         
         #logging.debug("individual instantiated; {}".format(self))
-        
+    
     @property
     def hash(self):
         """This is the unique identifier for this individual. """ 
@@ -913,6 +911,13 @@ class Mapping(object):
     def __str__(self):
         return "Mapping dimension {} domain to dimension {} range".format(self.design_space.dimension,
                                                                   self.objective_space.dimension)
+    
+    def print_summary(self):
+        print(self)
+        print(self.design_space)
+        print(self.objective_space)
+        print(self.individual)
+        
     #---Assignment
     def assign_individual(self, Individual):
         raise Exception("Obselete")

@@ -14,9 +14,9 @@ import itertools
 # Internal
 #===============================================================================
 import deap as dp
-import deap.design_space as ds
-import deap.mj_utilities.util_db_process as util_proc
-from deap.mj_utilities.db_base import DB_Base
+import design_space as ds
+import mj_utilities.util_db_process as util_proc
+from mj_utilities.db_base import DB_Base
 
 #===============================================================================
 # External

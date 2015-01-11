@@ -9,7 +9,7 @@ from __future__ import division
 from __future__ import print_function
 import os
 import unittest
-
+import pandas as pd
 # Logging
 import logging
 logging.basicConfig(format='%(funcName)-20s %(levelno)-3s: %(message)s', level=logging.DEBUG, datefmt='%I:%M:%S')
@@ -21,7 +21,7 @@ my_logger.setLevel("DEBUG")
 
 # Own
 from ExergyUtilities.utility_inspect import get_self, get_parent
-from deap.mj_projects import run_proj 
+from mj_projects import run_proj 
 
 #===============================================================================
 # Unit testing
@@ -35,7 +35,6 @@ class allTests(unittest.TestCase):
         
     def test000_empty(self):
         print("**** TEST {} ****".format(get_self()))
- 
     def test010_testing_zdt1(self):
         print("**** TEST {} ****".format(get_self()))
         path_book = os.path.abspath(self.curr_dir + r'\definitionbooks\testing_zdt1.xlsx')

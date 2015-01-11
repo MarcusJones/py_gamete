@@ -29,7 +29,7 @@ import unittest
 #===============================================================================
 from math import hypot, sqrt
 import json
-from deap import design_space as ds
+import design_space as ds
 from collections import defaultdict
 
 #===============================================================================
