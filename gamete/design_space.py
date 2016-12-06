@@ -1005,7 +1005,6 @@ class Generation(DB_Base):
     gen = Column(Integer, nullable = False)    
     individual = Column(Integer, sa.ForeignKey('Results.hash'), nullable = False,)
     
-    
     def __init__(self, gen, individual):
         self.gen = gen
         self.individual = individual
