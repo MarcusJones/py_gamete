@@ -26,10 +26,20 @@ import design_space as ds
 # from deap.mj_utilities.db_base import DB_Base
 
 # DEAP
+import sys
+
+logging.debug(sys.version)
+
+#sys.path.append(r"C:\Users\jon\git\deap")
+#for dir in sys.path:
+#    print(dir)
+#raise
 import deap as dp
 import deap.creator
 import deap.base
 import sqlalchemy as sa
+
+
 #===============================================================================
 # Testing
 #===============================================================================
@@ -117,7 +127,6 @@ class MappingPopulationTests2(unittest.TestCase):
         dp.creator.create("Individual", ds.Individual, fitness = dp.creator.FitnessMin)
         self.mapping = ds.Mapping(D1, obj_space1, dp.creator.Individual)
         
-        
     def test010(self):
         self.mapping.print_summary()
         print(self.mapping.individual)
@@ -126,7 +135,6 @@ class MappingPopulationTests2(unittest.TestCase):
         #DB_Base.metadata.create_all(self.engine)    
         #self.session.add_all(basis_variables)        
         #self.session.commit()
-
 
     def test020_send_pop_DB(self):
         print("**** TEST {} ****".format(whoami()))

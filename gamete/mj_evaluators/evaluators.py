@@ -28,7 +28,7 @@ def pre_process_exe(self, settings):
     """For simulation runs, create the directory structure needed to simulate
     """
     assert os.path.exists(settings['path_exe']), "EXE does not exist; {}".format(settings['path_exe'])
-    assert os.path.exists(settings['path_template']), "Template does not exist; {}".format(settings['path_template'])
+    assert os.path.exists(settings['path_template']), "util_python_path does not exist; {}".format(settings['path_template'])
     #===========================================================================
     # Check paths
     #===========================================================================
