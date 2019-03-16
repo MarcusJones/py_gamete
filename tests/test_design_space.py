@@ -5,22 +5,23 @@
 from __future__ import division
 from __future__ import print_function
 import unittest
+# import pytest
 
 # Utilities
 #from config import *
-from ExergyUtilities.utility_inspect import get_self
-from ExergyUtilities.utility_logger import LoggerCritical, LOGGING_CONFIG_2
+# from ExergyUtilities.utility_inspect import get_self
+# from ExergyUtilities.utility_logger import LoggerCritical, LOGGING_CONFIG_2
 
 # Logging
 import logging
-logging.basicConfig(format=LOGGING_CONFIG_2, level=logging.DEBUG, datefmt='%I:%M:%S')
-my_logger = logging.getLogger()
-my_logger.setLevel("DEBUG")
+# logging.basicConfig(format=LOGGING_CONFIG_2, level=logging.DEBUG, datefmt='%I:%M:%S')
+# my_logger = logging.getLogger()
+# my_logger.setLevel("DEBUG")
 
 # Own
 #from deap import design_space
 #from deap_original import *
-import design_space as ds
+import gamete.design_space as ds
 #from deap import *
 #import deap.mj_utilities.util_db_process as util_proc
 # from deap.mj_utilities.db_base import DB_Base

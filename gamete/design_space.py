@@ -39,7 +39,7 @@ import sqlalchemy as sa
 from sqlalchemy import Column, Integer, String
 from copy import deepcopy
 
-from mj_utilities.db_base import DB_Base
+from gamete.mj_utilities.db_base import DB_Base
 
 from operator import mul, truediv
 #===============================================================================
@@ -350,8 +350,8 @@ class ObjectiveSpace(object):
         objective_names = [obj.name for obj in objectives]
         objective_goals = [obj.goal for obj in objectives]
         
-        assert not isinstance(objective_names, basestring)
-        assert not isinstance(objective_goals, basestring)
+        assert not isinstance(objective_names, str)
+        assert not isinstance(objective_goals, str)
         assert(type(objective_names) == list or type(objective_names) == tuple)
         assert(type(objective_goals) == list or type(objective_names) == tuple)
         assert(len(objective_names) == len(objective_goals))
@@ -509,7 +509,7 @@ class Variable(DB_Base):
 
         # Assemble a list
         length = (upper - lower) / resolution + 1
-        vTuple = [lower + i * resolution for i in range(0,length)]
+        vTuple = [lower + i * resolution for i in range(0,int(length))]
 
         return cls(name, vtype, vTuple, True)
 

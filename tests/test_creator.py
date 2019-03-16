@@ -21,7 +21,7 @@ my_logger.setLevel("DEBUG")
 #import xxx
 
 # Own
-from ExergyUtilities.utility_inspect import get_self, get_parent
+# from ExergyUtilities.utility_inspect import get_self, get_parent
 
 #===============================================================================
 # Testing
