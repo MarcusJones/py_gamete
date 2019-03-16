@@ -14,6 +14,8 @@ for i in range(NDIM):
     this_var = ds.Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR)
     basis_variables.append(this_var)
 
+basis_variables.append(ds.Variable.as_bool('test'))
+
 design_space = ds.DesignSpace(basis_variables)
 print(design_space)
 design_space.print_design_space()

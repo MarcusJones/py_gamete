@@ -438,7 +438,10 @@ class Variable(DB_Base):
         self.vtype = vtype
         self.name = name
         self.locus = -1
-        
+
+        assert variable_tuple
+        assert len(variable_tuple)
+
         if isinstance(variable_tuple,tuple):
             pass
         elif isinstance(variable_tuple,int):
@@ -484,6 +487,10 @@ class Variable(DB_Base):
         return self.variable_tuple[self.index]
 
     @classmethod
+    def as_bool(cls, name):
+        return cls(name, 'bool', [True, False], False)
+
+    @classmethod
     def from_range(cls, name, vtype, lower, resolution, upper):
         """
         Init overload - easy creation from a lower to upper decimal with a step size
@@ -495,7 +502,7 @@ class Variable(DB_Base):
             not (isinstance(upper,str)or isinstance(upper,unicode) ) ):
             raise TypeError("""Expect all numbers as strings,
             i.e. "0.01" with quotes. This is to ensure decimal precision.\n
-            You input: {} - {} - {} Var: {}
+            Your input: {} - {} - {} Var: {}
             Types: {}, {}, {}
             """.format(lower, resolution, upper, name , type(lower), type(resolution), type(upper)))
 
@@ -801,6 +808,8 @@ class Individual(list):
                 list_items.append(float(gene.val_str))
             elif gene.vtype == 'string':
                 list_items.append(gene.val_str)
+            elif gene.vtype == 'bool':
+                list_items.append(gene.val_str)
             else:
                 raise Exception("{}".format(gene.vtype))
         super(Individual, self).__init__(list_items)
@@ -1002,9 +1011,9 @@ class Mapping(object):
 class Generation(DB_Base):
     __tablename__ = 'Generations'
     id = Column(Integer, primary_key=True)
-    gen = Column(Integer, nullable = False)    
+    gen = Column(Integer, nullable = False)
     individual = Column(Integer, sa.ForeignKey('Results.hash'), nullable = False,)
-    
+
     def __init__(self, gen, individual):
         self.gen = gen
         self.individual = individual
