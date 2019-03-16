@@ -1,6 +1,8 @@
 #%%
 from gamete import design_space as ds
 import deap as dp
+import deap.creator
+import deap.base
 NDIM = 3
 BOUND_LOW, BOUND_UP = 0.0, 1.0
 BOUND_LOW_STR, BOUND_UP_STR = '0.0', '.2'
@@ -30,6 +32,11 @@ print(dp.creator.FitnessMin)
 dp.creator.create("Individual", ds.Individual, fitness=dp.creator.FitnessMin)
 print(dp.creator.Individual)
 
+mapping = ds.Mapping(design_space, obj_space1, dp.creator.Individual)
+
+pop = mapping.get_random_population(20, flg_verbose=True)
+r = pop[1]
+dir(dp)
 print(obj_space1)
 
 ds.Variable
