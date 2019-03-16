@@ -1,6 +1,6 @@
 #%%
 from gamete import design_space as ds
-
+import deap as dp
 NDIM = 3
 BOUND_LOW, BOUND_UP = 0.0, 1.0
 BOUND_LOW_STR, BOUND_UP_STR = '0.0', '.2'
