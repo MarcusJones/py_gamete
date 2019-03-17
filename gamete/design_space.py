@@ -156,7 +156,7 @@ def generate_variable_table_class(name):
     individual values are stored as a string
     """
 
-    class NewTable( DB_Base ):
+    class NewTable():
         __tablename__ = "vector_{}".format(name)
         #__table_args__ = { 'schema': db }
         id = Column(Integer, primary_key=True)
@@ -412,10 +412,17 @@ class Allele(object):
         """
         String for current name and current value
         """
-        return "{}[{}]={}".format(self.name, self.index, self.val_str)
+        if self.vtype == 'bool':
+            return "{}={}".format(self.name,  self.value)
+            # if self.value:
+            #     return "{}={}".format(self.name, '0')
+            # else:
+            #     return "{}={}".format(self.name, '1')
+        else:
+            return "{}[{}]={}".format(self.name, self.index, self.val_str)
 
 
-class Variable(DB_Base):
+class Variable():
     """
     A general variable object, inherited by specific types
 
@@ -429,10 +436,10 @@ class Variable(DB_Base):
     value = The current value of the variable, defined by the index
     """
     
-    __tablename__ = 'Variables'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    vtype = Column(String)
+    # __tablename__ = 'Variables'
+    # id = Column(Integer, primary_key=True)
+    # name = Column(String)
+    # vtype = Column(String)
 
     def __init__(self, name, vtype, variable_tuple, ordered):
         self.vtype = vtype
@@ -461,12 +468,13 @@ class Variable(DB_Base):
             print('Initialize with a list or tuple')
             raise
 
-        self.ValueClass = generate_variable_table_class(name)
+        # self.ValueClass = generate_variable_table_class(name)
         #logging.debug("Variable value class; {}".format(self.ValueClass))
 
-        variable_class_tuple = [self.ValueClass(val) for val in variable_tuple]
+        # variable_class_tuple = [self.ValueClass(val) for val in variable_tuple]
 
-        self.variable_tuple = variable_class_tuple
+        # self.variable_tuple = variable_class_tuple
+        self.variable_tuple = variable_tuple
 
         self.ordered = ordered
 
@@ -474,10 +482,10 @@ class Variable(DB_Base):
 
         logging.debug("{}".format(self))
 
-    @property
-    def value_ORM(self):
-        return self.variable_tuple[self.index]
-    
+    # @property
+    # def value_ORM(self):
+    #     return self.variable_tuple[self.index]
+
     @property
     def val_str(self):
         return str(self.variable_tuple[self.index])
@@ -579,12 +587,11 @@ class Variable(DB_Base):
                       self.index, 
                       self.ordered)
 
-         
     def return_random_allele(self):
         """
         Return a random value from all possible values
         """
-
+        raise Exception("depreciated")
         self.index = random.choice(range(len(self)))
         
         return Allele(self.name, 
@@ -594,6 +601,19 @@ class Variable(DB_Base):
                               self.index, 
                               self.ordered)
 
+    def return_random_allele2(self):
+        """
+        Return a random value from all possible values
+        """
+
+        self.index = random.choice(range(len(self)))
+
+        return Allele(self.name,
+                      self.locus,
+                      self.vtype,
+                      self.value,
+                      self.index,
+                      self.ordered)
 
     def get_new_random(self):
         """
@@ -721,7 +741,6 @@ class Variable(DB_Base):
 
 
 
-
 class DesignSpace(object):
 
     def __init__(self, basis_set):
@@ -765,6 +784,8 @@ class DesignSpace(object):
     def __str__(self):
         return "DesignSpace: Dimension: {0}, Cardinality: {1}".format(self.dimension,self.cardinality)
 
+    def __repr__(self):
+        return self.__str__()
 
     def get_cardinality(self):
         """
