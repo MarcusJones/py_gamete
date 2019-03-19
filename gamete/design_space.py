@@ -24,38 +24,27 @@ import logging.config
 from decimal import Decimal
 import random
 #import time
-import itertools
-import sys
+# import itertools
+# import sys
 #import imp
-import datetime
+# import datetime
 
 # External library
 #import numpy as np
 
 # Utilites
-import sqlalchemy as sa
+# import sqlalchemy as sa
 #import ExergyUtilities.utility_SQL_alchemy as util_sa
 #from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
-from copy import deepcopy
+# from sqlalchemy import Column, Integer, String
+# from copy import deepcopy
 
-from gamete.mj_utilities.db_base import DB_Base
+# from gamete.mj_utilities.db_base import DB_Base
 
-from operator import mul, truediv
+# from operator import mul, truediv
 #===============================================================================
 # Code
 #===============================================================================
-#--- Utilities
-def convert_settings(table_rows):
-    settings = dict()
-    for row in table_rows:
-        settings[row['attribute']] = row['description']
-    return settings
-
-def empty_fitness(objectiveNames):
-    """Utility to initialize the objective vector to NULL
-    """
-    return [[name, None] for name in objectiveNames]
 
 
 def generate_chromosome(basis_set):
@@ -67,360 +56,7 @@ def generate_chromosome(basis_set):
 
     return zip(variable_names,variable_indices,variableValues)
 
-#--- Database interaction
-def convert_DB_individual(res, mapping):
-    """Given a Results object from the database, recreate the individual object
-    """
-    chromosome = list()
-    for var in mapping.design_space.basis_set:
-        index_from_db = getattr(res, "var_c_{}".format(var.name))
-        index = index_from_db - 1
-        this_var = var.get_indexed_obj(index)
-        chromosome.append(this_var)
-
-    fitvals = list()
-    for name in mapping.objective_space.objective_names:
-        val = getattr(res, "obj_c_{}".format(name))
-        fitvals.append(val)
-
-    this_fit = mapping.fitness()
-    this_fit.setValues(fitvals)
-
-    this_ind = mapping.individual(chromosome=chromosome, 
-                                fitness=this_fit
-                                )
-
-    return this_ind
-
-def convert_individual_DB(ResultsClass,ind):
-    this_res = ResultsClass()
-    this_res.hash = ind.hash
-    
-    for gene in ind.chromosome:
-        setattr(this_res, "var_c_{}".format(gene.name),gene.index+1)
-
-    for name,val in zip(ind.fitness.names,ind.fitness.values):
-        setattr(this_res, "obj_c_{}".format(name),val)
-    
-    this_res.start = ind.start_time
-    this_res.finish = ind.finish_time
-    
-    return this_res
-
-
-
-def generate_individuals_table(mapping):
-    columns = list()
-    columns.append(sa.Column('hash', sa.Integer, primary_key=True))
-    columns.append(sa.Column('start', sa.DateTime))
-    columns.append(sa.Column('finish', sa.DateTime))    
-    for var in mapping.design_space.basis_set:
-        columns.append(sa.Column("var_c_{}".format(var.name), sa.Integer, sa.ForeignKey('vector_{}.id'.format(var.name)), nullable = False,  ))
-    for obj in mapping.objective_space.objective_names:
-        #columns.append(sa.Column("{}".format(obj), sa.Float, nullable = False,  ))
-        columns.append(sa.Column("obj_c_{}".format(obj), sa.Float))
-    
-    tab_results = sa.Table('Results', DB_Base.metadata, *columns)
-    
-    return(tab_results)  
-
-def generate_ORM_individual(mapping):
-    def __str__(self):
-        return "XXX"
-        #return ", ".join(var in mapping.design_space.basis_set)
-    def __repr__(self):
-        #return ",".join(dir(self))
-        return "{} {} {}".format(self.hash, self.start, self.finish)
-        #return ", ".join(var in mapping.design_space.basis_set)  
-    attr_dict = {
-                    '__tablename__' : 'Results',
-                    'hash' : sa.Column(Integer, primary_key=True),
-                    'start' : sa.Column('start', sa.DateTime),
-                    'finish' : sa.Column('finish', sa.DateTime),
-                    '__str__' : __str__,
-                    '__repr__' : __repr__,
-                }
-    for var in mapping.design_space.basis_set:
-        attr_dict["var_c_{}".format(var.name)] = sa.Column("var_c_{}".format(var.name), sa.Integer, sa.ForeignKey('vector_{}.id'.format(var.name)), nullable = False,  ) 
-    for obj in mapping.objective_space.objective_names:
-        attr_dict["obj_c_{}".format(obj)] =  sa.Column("obj_c_{}".format(obj), sa.Float)
-    
-    ThisClass = type('Results',(object,),attr_dict)
-
-
-    return ThisClass
-
-def generate_variable_table_class(name):
-    """This is a helper function which dynamically creates a new ORM enabled class
-    The table will hold the individual values of each variable
-    individual values are stored as a string
-    """
-
-    class NewTable():
-        __tablename__ = "vector_{}".format(name)
-        #__table_args__ = { 'schema': db }
-        id = Column(Integer, primary_key=True)
-        value = Column(String(16), nullable=False, unique=True)
-        def __init__(self,value):
-            self.value = str(value)
-            
-        def __str__(self):
-            return self.value
-        
-        def __repr__(self):
-            return self.value    
-        
-       
-    NewTable.__name__ = "vector_ORM_{}".format(name)
-
-    
-    return NewTable
-
-#--- Objective space
-class Objective(DB_Base):
-    __tablename__ = 'Objectives'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    goal = Column(String)
-    
-    def __init__(self, name, goal):
-        self.name = name
-        self.goal = goal
-
-class Fitness(object):
-    """
-    ***
-    COPIED FROM DEAP 
-    06JAN2015
-    
-    Modified:
-    Names are hardcoded as an attribute
-    ***
-    
-    The fitness is a measure of quality of a solution. If *values* are
-    provided as a tuple, the fitness is initalized using those values,
-    otherwise it is empty (or invalid).
-    
-    :param values: The initial values of the fitness as a tuple, optional.
-
-    Fitnesses may be compared using the ``>``, ``<``, ``>=``, ``<=``, ``==``,
-    ``!=``. The comparison of those operators is made lexicographically.
-    Maximization and minimization are taken care off by a multiplication
-    between the :attr:`weights` and the fitness :attr:`values`. The comparison
-    can be made between fitnesses of different size, if the fitnesses are
-    equal until the extra elements, the longer fitness will be superior to the
-    shorter.
-
-    Different types of fitnesses are created in the :ref:`creating-types`
-    tutorial.
-
-    .. note::
-       When comparing fitness values that are **minimized**, ``a > b`` will
-       return :data:`True` if *a* is **smaller** than *b*.
-    """
-    
-    weights = None
-    """The weights are used in the fitness comparison. They are shared among
-    all fitnesses of the same type. When subclassing :class:`Fitness`, the
-    weights must be defined as a tuple where each element is associated to an
-    objective. A negative weight element corresponds to the minimization of
-    the associated objective and positive weight to the maximization.
-
-    .. note::
-        If weights is not defined during subclassing, the following error will 
-        occur at instantiation of a subclass fitness object: 
-        
-        ``TypeError: Can't instantiate abstract <class Fitness[...]> with
-        abstract attribute weights.``
-    """
-    
-    wvalues = ()
-    """Contains the weighted values of the fitness, the multiplication with the
-    weights is made when the values are set via the property :attr:`values`.
-    Multiplication is made on setting of the values for efficiency.
-    
-    Generally it is unnecessary to manipulate wvalues as it is an internal
-    attribute of the fitness used in the comparison operators.
-    """
-    
-    def __init__(self, weights, names, values=()):
-#         if self.weights is None:
-#             raise TypeError("Can't instantiate abstract %r with abstract "
-#                 "attribute weights." % (self.__class__))
-#         
-#         if not isinstance(self.weights, Sequence):
-#             raise TypeError("Attribute weights of %r must be a sequence." 
-#                 % self.__class__)
-#         
-        self.weights = weights
-        self.names = names
-        if len(values) > 0:
-            self.values = values
-
-    def getValues(self):
-        return tuple(map(truediv, self.wvalues, self.weights))
-            
-    def setValues(self, values):
-        try:
-            self.wvalues = tuple(map(mul, values, self.weights))
-        except TypeError:
-            #_, _, traceback = sys.exc_info()
-            raise TypeError("Both weights and assigned values must be a "
-            "sequence of numbers when assigning to values of "
-            "%r. Currently assigning value(s) %r of %r to a fitness with "
-            "weights %s."
-            % (self.__class__, values, type(values), self.weights)).with_traceback()
-            
-    def delValues(self):
-        self.wvalues = ()
-
-    values = property(getValues, setValues, delValues,
-        ("Fitness values. Use directly ``individual.fitness.values = values`` "
-         "in order to set the fitness and ``del individual.fitness.values`` "
-         "in order to clear (invalidate) the fitness. The (unweighted) fitness "
-         "can be directly accessed via ``individual.fitness.values``."))
-    
-    def dominates(self, other, obj=slice(None)):
-        """Return true if each objective of *self* is not strictly worse than 
-        the corresponding objective of *other* and at least one objective is 
-        strictly better.
-
-        :param obj: Slice indicating on which objectives the domination is 
-                    tested. The default value is `slice(None)`, representing
-                    every objectives.
-        """
-        not_equal = False
-        for self_wvalue, other_wvalue in zip(self.wvalues[obj], other.wvalues[obj]):
-            if self_wvalue > other_wvalue:
-                not_equal = True
-            elif self_wvalue < other_wvalue:
-                return False                
-        return not_equal
-
-    @property
-    def valid(self):
-        """Assess if a fitness is valid or not."""
-        return len(self.wvalues) != 0
-        
-    def __hash__(self):
-        return hash(self.wvalues)
-
-    def __gt__(self, other):
-        return not self.__le__(other)
-        
-    def __ge__(self, other):
-        return not self.__lt__(other)
-
-    def __le__(self, other):
-        return self.wvalues <= other.wvalues
-
-    def __lt__(self, other):
-        return self.wvalues < other.wvalues
-
-    def __eq__(self, other):
-        return self.wvalues == other.wvalues
-    
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __deepcopy__(self, memo):
-        """Replace the basic deepcopy function with a faster one.
-        
-        It assumes that the elements in the :attr:`values` tuple are 
-        immutable and the fitness does not contain any other object 
-        than :attr:`values` and :attr:`weights`.
-        """
-        copy_ = self.__class__()
-        copy_.wvalues = self.wvalues
-        return copy_
-
-    def __str__(self):
-        """Return the values of the Fitness object."""
-        return str(self.values if self.valid else tuple())
-
-    def __repr__(self):
-        """Return the Python code to build a copy of the object."""
-        return "%s.%s(%r)" % (self.__module__, self.__class__.__name__,
-            self.values if self.valid else tuple())
-
-
-
-class ObjectiveSpace(object):
-    def __init__(self, objectives):
-        objective_names = [obj.name for obj in objectives]
-        objective_goals = [obj.goal for obj in objectives]
-        
-        assert not isinstance(objective_names, str)
-        assert not isinstance(objective_goals, str)
-        assert(type(objective_names) == list or type(objective_names) == tuple)
-        assert(type(objective_goals) == list or type(objective_names) == tuple)
-        assert(len(objective_names) == len(objective_goals))
-        for obj in objective_names:
-            assert obj not in  ["hash", "start", "finish"]
-
-        #for goal in objective_goals:
-        #    assert(goal == "Min" or goal == "Max")
-
-        self.objective_names = objective_names
-        self.objective_goals = objective_goals
-        logging.debug("Created {}".format(self))
-
-    # Information about the space -------------
-    def __str__(self):
-        return "ObjectiveSpace: {} Dimensions : {}".format(self.dimension,zip(self.objective_names,self.objective_goals))
-
-    @property
-    def dimension(self):
-        return len(self.objective_names)
-
 #--- Design space
-
-class Allele(object):
-    """
-    Init Attributes
-    name - A label for the variable. Required.
-    locus - 
-    variable_tuple - The k-Tuple of possible values
-    ordered= True - Flag
-
-    Internal Attributes
-    index = None - The corresponding index of the generated value
-    value = The current value of the variable, defined by the index
-    """
-    def __init__(self, name, locus, vtype, value, index, ordered):
-        self.name = name
-        self.locus = locus
-        self.vtype = vtype
-        self.value = value
-        self.index = index
-        self.ordered = ordered
-
-        #logging.debug("{}".format(self))
-    
-    def __str__(self):
-        return self.this_val_str()
-
-    def __repr__(self):
-        return self.this_val_str()
-    
-    @property
-    def val_str(self):
-        return str(self.value)
-    
-    def this_val_str(self):
-        
-        """
-        String for current name and current value
-        """
-        if self.vtype == 'bool':
-            return "{}={}".format(self.name,  self.value)
-            # if self.value:
-            #     return "{}={}".format(self.name, '0')
-            # else:
-            #     return "{}={}".format(self.name, '1')
-        else:
-            return "{}[{}]={}".format(self.name, self.index, self.val_str)
-
 
 class Variable():
     """
@@ -434,12 +70,13 @@ class Variable():
     Internal Attributes
     index = None - The corresponding index of the generated value
     value = The current value of the variable, defined by the index
+
+    Possible types:
+        - int
+        - float
+        - string
+        - bool
     """
-    
-    # __tablename__ = 'Variables'
-    # id = Column(Integer, primary_key=True)
-    # name = Column(String)
-    # vtype = Column(String)
 
     def __init__(self, name, vtype, variable_tuple, ordered):
         self.vtype = vtype
@@ -462,29 +99,20 @@ class Variable():
         else:
             raise Exception("Need a list, int, float, or tuple")
 
+        self.variable_tuple = variable_tuple
+
+        # TODO: Assertion?
         try:
             len(variable_tuple)
         except:
             print('Initialize with a list or tuple')
             raise
 
-        # self.ValueClass = generate_variable_table_class(name)
-        #logging.debug("Variable value class; {}".format(self.ValueClass))
-
-        # variable_class_tuple = [self.ValueClass(val) for val in variable_tuple]
-
-        # self.variable_tuple = variable_class_tuple
-        self.variable_tuple = variable_tuple
-
         self.ordered = ordered
 
         self.index = None
 
         logging.debug("{}".format(self))
-
-    # @property
-    # def value_ORM(self):
-    #     return self.variable_tuple[self.index]
 
     @property
     def val_str(self):
@@ -533,14 +161,14 @@ class Variable():
         """
         Init overload - the variable is ordered (default)
         """
-        return cls(name, vtype, vTuple,True)
+        return cls(name, vtype, vTuple, True)
 
     @classmethod
     def unordered(cls,name, vtype, vTuple):
         """
         Init overload - the variable has no ordering
         """
-        return cls(name, vtype, vTuple,False)
+        return cls(name, vtype, vTuple, False)
 
     def get_random(self):
         """
@@ -802,241 +430,5 @@ class DesignSpace(object):
         The dimension of a vector space is the number of vectors in any basis for the space
         """
         return len(self.basis_set)
-
-
-class Individual(list):
-    """An individual is composed of a list of alleles (chromosome).
-    Each gene is an instance of the Variable class.
-    The individual class inherits list (slicing, assignment, mutability, etc.).
-    
-    :param chromosome: list of allele
-    .. py:classmethod:: asdf
-    .. py:attribute:: name
-    
-    
-    
-    
-    """
-    def __init__(self, chromosome):
-        
-        for val in chromosome:
-            assert type(val) == Allele
-
-        
-        list_items = list()
-        for gene in chromosome:
-            if gene.vtype == 'float':
-                list_items.append(float(gene.val_str))
-            elif gene.vtype == 'string':
-                list_items.append(gene.val_str)
-            elif gene.vtype == 'bool':
-                list_items.append(gene.val_str)
-            else:
-                raise Exception("{}".format(gene.vtype))
-        super(Individual, self).__init__(list_items)
-        
-        self.chromosome = chromosome
-       # self.fitness = fitness
-        
-        
-        self.start_time = None
-        self.finish_time = None
-        #self.hash = self.__hash__()
-        
-        #logging.debug("individual instantiated; {}".format(self))
-    
-    @property
-    def hash(self):
-        """This is the unique identifier for this individual. """ 
-        return self.__hash__()
-    
-    
-    def clone(self):
-        new_chromo = list()
-        for allele in self.chromosome:
-            new_chromo.append(Allele(allele.name, allele.locus, allele.vtype, allele.value, allele.index, allele.ordered))
-                              
-        cloned_Ind = Individual(new_chromo, deepcopy(self.fitness))
-        assert(cloned_Ind is not self)
-        assert(cloned_Ind.fitness is not self.fitness)
-        return cloned_Ind
-
-    
-    def re_init(self):
-        list_items = list()
-        for gene in self.chromosome:
-            if gene.vtype == 'float':
-                list_items.append(float(gene.val_str))
-            elif gene.vtype == 'string':
-                list_items.append(gene.val_str)
-            else:
-                raise Exception("{}".format(gene.vtype))      
-        super(individual, self).__init__(list_items)
-        
-    
-    def recreate_fitness(self):
-        raise
-        fit_vals = list()
-        for name in self.fitness_names:
-            fit_vals.append(getattr(self, name))
-        print(self)
-        print(self.obj1)
-        print(fit_vals)
-        raise Exception
-
-                
-    def __hash__(self):
-        """This defines the uniqueness of the individual
-        An individual can be identified by the combination of its genes, just as in nature. 
-        For example, the string composed of the individual variable vectors. 
-        But this would be expensive and complicated to store in a database
-        The hash compresses this information to an integer value. 
-        """
-        index_list = [allele.index for allele in self.chromosome]
-        return hash(tuple(index_list))
-
-    def __eq__(self,other):
-        if self.hash == other.hash:
-            return True
-        return False
-
-    #def __repr__(self):
-    #    return(self.__str__())
-    
-    def __str__(self):
-        return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]), self.fitness)
-
-    def update(self):
-        """Check on the status of the process, update if necessary
-        """
-        if self.process:
-            retcode = self.process.poll()
-            # Windows exit code
-            if retcode is None:
-                #logging.debug("Update {}, Process: {}, RUNNING".format(self.hash,self.process))                
-                self.status = "Running"
-            else:
-                # Add more handling for irregular retcodes
-                # See i.e. http://www.symantec.com/connect/articles/windows-system-error-codes-exit-codes-description
-                #logging.debug("Update {}, Process: {}, DONE".format(self.hash,self.process))                
-                self.run_status = "Finished"
-                self.finish_time  = datetime.datetime.now()
-        else:
-            # This process has not been started]
-            raise
-            pass
-
-
-#--- Evolution
-class Mapping(object):
-    def __init__(self, design_space, objective_space, individual):
-        """
-        """
-        
-        self.design_space = design_space
-        self.objective_space = objective_space
-        self.individual = individual
-        logging.info(self)
-
-    def __str__(self):
-        return "Mapping dimension {} domain to dimension {} range".format(self.design_space.dimension,
-                                                                  self.objective_space.dimension)
-    
-    def print_summary(self):
-        print(self)
-        print(self.design_space)
-        print(self.objective_space)
-        print(self.individual)
-        
-    #---Assignment
-    def assign_individual(self, Individual):
-        raise Exception("Obselete")
-
-        self.individual = Individual
-        logging.info("This mapping will produce individuals of class {}".format(Individual.__name__))
-
-    def assign_evaluator(self, life_cycle):
-        self.individual.pre_process  = life_cycle['pre_process']
-        self.individual.execute  = life_cycle['execute']
-        self.individual.post_process  = life_cycle['post_process']
-        
-        logging.info("Bound life cycle {}, {}, {} to {}".format(
-                                                                life_cycle['pre_process'],
-                                                                life_cycle['execute'],
-                                                                life_cycle['post_process'],
-                                                                self.individual.__name__)
-                     )
-
-    def assign_fitness(self, fitness):
-        raise Exception("Obselete")
-        self.fitness = fitness
-        logging.info("This mapping will produce fitness of class {}".format(fitness.__name__))
-    
-    #--- Generating points in the space
-    def get_random_mapping(self, flg_verbose = False):
-        """
-        Randomly sample all basis_set vectors, return a random variable vector
-        """
-        chromosome = list()
-        for var in self.design_space.basis_set:
-            this_var = var.return_random_allele()
-            chromosome.append(this_var)
-        
-        this_ind = self.individual(chromosome=chromosome, 
-                                    )
-        #this_ind = this_ind.init_life_cycle()
-        
-        if flg_verbose:
-            logging.debug("Creating a {} individual with chromosome {}".format(self.individual, chromosome))        
-            logging.debug("Returned random individual {}".format(this_ind))
-        
-        return this_ind
-
-    def get_random_population(self, pop_size, flg_verbose = False):
-        """Call get_random_mapping n times to generate a list of individuals
-        """
-        indiv_list = list()
-        for idx in range(pop_size):
-            indiv_list.append(self.get_random_mapping(flg_verbose))
-
-        logging.info("Retrieved {} random mappings from a space of {} elements".format(pop_size, self.design_space.get_cardinality()))
-
-        return indiv_list
-
-    def get_global_search(self):
-        raise
-        tuple_set = list()
-        names = list()
-        indices = list()
-        for variable in self.design_space.basis_set:
-            tuple_set.append(variable.variable_tuple)
-            names.append(variable.name)
-            indices.append(None)
-
-        run_list = list()
-        for vector in itertools.product(*tuple_set):
-            #print(vector)
-            this_indiv = self.individual(names,vector,indices,self.evaluator)
-            #print(this_indiv)
-            run_list.append(this_indiv)
-        #raise
-        log_string = "Retrieved {} individuals over {}-dimension design space".format(len(run_list),self.design_space.dimension)
-        logging.info(log_string)
-
-        return run_list
-
-    def getHyperCorners(self):
-        raise
-        pass
-
-class Generation(DB_Base):
-    __tablename__ = 'Generations'
-    id = Column(Integer, primary_key=True)
-    gen = Column(Integer, nullable = False)
-    individual = Column(Integer, sa.ForeignKey('Results.hash'), nullable = False,)
-
-    def __init__(self, gen, individual):
-        self.gen = gen
-        self.individual = individual
 
 
