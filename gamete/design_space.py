@@ -110,17 +110,17 @@ class Variable():
 
         self.ordered = ordered
 
-        self.index = None
+        self._index = None
 
         logging.debug("{}".format(self))
 
     @property
     def val_str(self):
-        return str(self.variable_tuple[self.index])
+        return str(self.variable_tuple[self._index])
 
     @property
     def value(self):
-        return self.variable_tuple[self.index]
+        return self.variable_tuple[self._index]
 
     @classmethod
     def as_bool(cls, name):
@@ -174,26 +174,26 @@ class Variable():
         """
         Return a random value from all possible values
         """
-        self.index = random.choice(range(len(self)))
+        self._index = random.choice(range(len(self)))
         return self
 
     def get_indexed_obj(self, index):
         #raise
-        self.index = index
-        return Allele(self.name, 
-                      self.locus,                      
-                              self.vtype, 
-                              self.val_str, 
-                              self.index, 
-                              self.ordered)
+        self._index = index
+        return Allele(self.name,
+                      self.locus,
+                      self.vtype,
+                      self.val_str,
+                      self._index,
+                      self.ordered)
 
     def return_allele(self):
-        return Allele(self.name, 
+        return Allele(self.name,
                       self.locus,
-                              self.vtype, 
-                              self.val_str, 
-                              self.index, 
-                              self.ordered)
+                      self.vtype,
+                      self.val_str,
+                      self._index,
+                      self.ordered)
 
     def return_closest_allele(self,target_value):
         
@@ -206,13 +206,13 @@ class Variable():
         
         # Get the index of this value and update variable index to match
         closest_index= possible_values.index(closest)
-        self.index = closest_index
+        self._index = closest_index
         
-        return Allele(self.name, 
-              self.locus,
-                      self.vtype, 
-                      self.val_str, 
-                      self.index, 
+        return Allele(self.name,
+                      self.locus,
+                      self.vtype,
+                      self.val_str,
+                      self._index,
                       self.ordered)
 
     def return_random_allele(self):
@@ -220,27 +220,27 @@ class Variable():
         Return a random value from all possible values
         """
         raise Exception("depreciated")
-        self.index = random.choice(range(len(self)))
+        self._index = random.choice(range(len(self)))
         
-        return Allele(self.name, 
+        return Allele(self.name,
                       self.locus,
-                              self.vtype, 
-                              self.val_str, 
-                              self.index, 
-                              self.ordered)
+                      self.vtype,
+                      self.val_str,
+                      self._index,
+                      self.ordered)
 
     def return_random_allele2(self):
         """
         Return a random value from all possible values
         """
 
-        self.index = random.choice(range(len(self)))
+        self._index = random.choice(range(len(self)))
 
         return Allele(self.name,
                       self.locus,
                       self.vtype,
                       self.value,
-                      self.index,
+                      self._index,
                       self.ordered)
 
     def get_new_random(self):
@@ -273,7 +273,7 @@ class Variable():
         if self.ordered:
             upperIndexBound = len(self) - 1
             lowerIndexBound = 0
-            currentIndex = self.index
+            currentIndex = self._index
 
             move = random.choice([    1 * step_size   ,   -1 * step_size   ])
             newIndex = currentIndex + move
@@ -285,7 +285,7 @@ class Variable():
             else:
                 pass
 
-            self.index = newIndex
+            self._index = newIndex
 
             return self
 
@@ -294,7 +294,7 @@ class Variable():
         """
         String for current name and current value
         """
-        return "{}[{}] := {}".format(self.name, self.index, self.val_str)
+        return "{}[{}] := {}".format(self.name, self._index, self.val_str)
 
     def __len__(self):
         """
@@ -314,7 +314,7 @@ class Variable():
             except:
                 pass
 
-        if self.index == None:
+        if self._index == None:
             generatedValueStr = "<UNINITIALIZED>"
         else:
             generatedValueStr = self.val_str
@@ -348,7 +348,7 @@ class Variable():
         """
         if self.iterIndex < len(self.variable_tuple):
             # This is 0 at start
-            self.index = self.iterIndex
+            self._index = self.iterIndex
             #self.value = self.variable_tuple[self.iterIndex]
         else:
             raise StopIteration
