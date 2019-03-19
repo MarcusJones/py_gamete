@@ -9,19 +9,28 @@ def test_variable():
     BOUND_LOW_STR, BOUND_UP_STR = '0.0', '.2'
     RES_STR = '0.05'
 
-    # --- Variables
-    range_variable_set = list()
+    vset_bool = dspace.VariableList("boolean set",list())
+    vset_ranged = dspace.VariableList("range set",list())
+
+    # Variables
     for i in range(NDIM):
         this_var = dspace.Variable.from_range("{}".format(i), 'float', BOUND_LOW_STR, RES_STR, BOUND_UP_STR)
-        range_variable_set.append(this_var)
+        vset_ranged.append(this_var)
 
-    assert type(range_variable_set[2].variable_tuple[0]) is decimal.Decimal
-
-    range_variable_set.append(dspace.Variable.as_bool('This Bool'))
     print()
-    for var in range_variable_set:
+    for var in vset_ranged:
         print(var)
 
-    assert len(range_variable_set) == 4
+    assert type(vset_ranged[2].variable_tuple[0]) is decimal.Decimal
+
+    for i in range(5):
+        vset_bool.append(dspace.Variable.as_bool('This Bool'))
+
+    assert len(vset_ranged) == 4
+
+
+
+    variable_lists = [vset_bool, vset_ranged]
+
 
 

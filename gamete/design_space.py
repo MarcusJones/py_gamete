@@ -57,6 +57,11 @@ def generate_chromosome(basis_set):
     return zip(variable_names,variable_indices,variableValues)
 
 #--- Design space
+class VariableList(list):
+    def __init__(self, name, list_items):
+        self.name = name
+        super().__init__(list_items)
+
 
 class Variable():
     """
@@ -369,13 +374,12 @@ class Variable():
 
 class DesignSpace(object):
 
-    def __init__(self, basis_set):
+    def __init__(self, variable_lists):
         """
         The DSpace
 
         Creation:
-        basis_set, a list of Variable objects
-        objectives, some text descriptors for the objective space
+        variable_lists, a list of lists of Variable objects
 
         Attr:
         dimension: Number of Basis sets
@@ -383,13 +387,14 @@ class DesignSpace(object):
         """
 
         # Creation
-        for i,var in enumerate(basis_set):
-            var.locus = i
-        
-        self.basis_set = basis_set
+        # for i,var in enumerate(variable_lists):
+        #     var.locus = i
+        self.basis_set = list()
+        for v_list in variable_lists:
+            self.basis_set.append(variable_lists)
 
         #self.objectives = objectives
-
+        raise
         self.dimension = self.get_dimension()
         self.cardinality = self.get_cardinality()
 
