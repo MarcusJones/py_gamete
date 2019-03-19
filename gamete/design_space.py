@@ -324,16 +324,14 @@ class Variable():
         elif not self.ordered:
             ordStr = "Unordered"
 
-        return "{} = {} length: '{}', {}, {}, memory address: {:,d}, {}".format(
+        return "{} = {} length: '{}', {}, {}, {}".format(
                                  self.name,
                                  generatedValueStr,
                                  len(self.variable_tuple),
                                  shortTupleString,
-                                 ordStr,
                                  id(self),
                                  self.vtype,
                                  )
-
 
     def __str__(self):
         return self.long_str()

@@ -3,6 +3,10 @@ setup.py
 gamete/__init__.py
 gamete/base.py
 gamete/design_space.py
+gamete/evolution_space.py
+gamete/fitness.py
+gamete/mapping.py
+gamete/objective_space.py
 gamete.egg-info/PKG-INFO
 gamete.egg-info/SOURCES.txt
 gamete.egg-info/dependency_links.txt
@@ -27,10 +31,11 @@ gamete/mj_utilities/db_base.py
 gamete/mj_utilities/util_db_process.py
 gamete/mj_utilities/util_general.py
 gamete/mj_utilities/util_graphics.py
+tests/OLDtest_creator.py
+tests/OLDtest_design_space.py
+tests/OLDtest_project.py
 tests/__init__.py
-tests/test_creator.py
-tests/test_design_space.py
-tests/test_project.py
+tests/test_variable.py
 tests/OLD/__init__.py
 tests/OLD/mapping_tests.py
 tests/OLD/mj_nsga2.py
