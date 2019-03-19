@@ -391,11 +391,16 @@ class DesignSpace(object):
         #     var.locus = i
         self.basis_set = list()
         self.variable_set = list()
+        self.positions = list()
+        cnt = 0
         for v_list in variable_lists:
             this_name = v_list.name
             for var in v_list:
+
                 self.basis_set.append(var)
                 self.variable_set.append(this_name)
+                self.positions.append(cnt)
+                cnt +=1
 
         #self.objectives = objectives
         if 0:
