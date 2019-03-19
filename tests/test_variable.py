@@ -26,11 +26,12 @@ def test_variable():
     for i in range(5):
         vset_bool.append(dspace.Variable.as_bool('This Bool'))
 
-    assert len(vset_ranged) == 4
-
-
+    assert len(vset_ranged) == 3
 
     variable_lists = [vset_bool, vset_ranged]
+
+    this_ds = dspace.DesignSpace(variable_lists)
+
 
 
 

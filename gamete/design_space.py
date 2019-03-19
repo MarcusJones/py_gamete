@@ -390,20 +390,24 @@ class DesignSpace(object):
         # for i,var in enumerate(variable_lists):
         #     var.locus = i
         self.basis_set = list()
+        self.variable_set = list()
         for v_list in variable_lists:
-            self.basis_set.append(variable_lists)
+            this_name = v_list.name
+            for var in v_list:
+                self.basis_set.append(var)
+                self.variable_set.append(this_name)
 
         #self.objectives = objectives
-        raise
-        self.dimension = self.get_dimension()
-        self.cardinality = self.get_cardinality()
+        if 0:
+            self.dimension = self.get_dimension()
+            self.cardinality = self.get_cardinality()
 
 
-        logging.info("Init {0}".format(self))
+            logging.info("Init {0}".format(self))
 
 
-        for var in self.basis_set:
-            assert var.name not in ["hash", "start", "finish"]
+            for var in self.basis_set:
+                assert var.name not in ["hash", "start", "finish"]
 
 
     # Representing the space -------------
