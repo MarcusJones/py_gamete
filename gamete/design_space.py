@@ -23,6 +23,8 @@ import logging.config
 # Standard library
 from decimal import Decimal
 import random
+# from gamete import evolution_space
+from gamete.evolution_space import Allele
 #import time
 # import itertools
 # import sys
@@ -220,6 +222,7 @@ class Variable():
                       self._index,
                       self.ordered)
 
+    # TODO: REMOVE
     def return_random_allele(self):
         """
         Return a random value from all possible values
@@ -234,7 +237,7 @@ class Variable():
                       self._index,
                       self.ordered)
 
-    def return_random_allele2(self):
+    def return_random_allele2(self, chromo_name):
         """
         Return a random value from all possible values
         """
@@ -242,6 +245,7 @@ class Variable():
         self._index = random.choice(range(len(self)))
 
         return Allele(self.name,
+                      chromo_name,
                       self.locus,
                       self.vtype,
                       self.value,
@@ -379,9 +383,6 @@ class DesignSpace(object):
         cardinality: The total number of points
         """
 
-        # Creation
-        # for i,var in enumerate(variable_lists):
-        #     var.locus = i
         self.basis_set = list()
         self.variable_set = list()
         self.positions = list()
@@ -395,12 +396,8 @@ class DesignSpace(object):
                 self.positions.append(cnt)
                 cnt +=1
 
-
-
-
         for var in self.basis_set:
             assert var.name not in ["hash", "start", "finish"]
-
 
     def print_design_space(self):
         for var_def in zip(self.positions, self.variable_set, self.basis_set):
@@ -429,5 +426,13 @@ class DesignSpace(object):
         The dimension of a vector space is the number of vectors in any basis for the space
         """
         return len(self.basis_set)
+
+    def gen_chromosome(self):
+        chromosome = list()
+        for var, chromo_name in zip(self.basis_set, self.variable_set):
+            this_allele = var.return_random_allele2(chromo_name)
+            chromosome.append(this_allele)
+        return chromosome
+        # this_ind = self.individual(chromosome=chromosome)
 
 

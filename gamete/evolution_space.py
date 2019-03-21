@@ -11,8 +11,9 @@ class Allele(object):
     value = The current value of the variable, defined by the index
     """
 
-    def __init__(self, name, locus, vtype, value, index, ordered):
+    def __init__(self, name, chromo_name, locus, vtype, value, index, ordered):
         self.name = name
+        self.chromo_name = chromo_name
         self.locus = locus
         self.vtype = vtype
         self.value = value
@@ -37,7 +38,11 @@ class Allele(object):
         String for current name and current value
         """
         if self.vtype == 'bool':
-            return "{}={}".format(self.name, self.value)
+            if self.value:
+                vstr = 1
+            else:
+                vstr = 0
+            return "{}={}".format(self.name, vstr)
             # if self.value:
             #     return "{}={}".format(self.name, '0')
             # else:
@@ -54,10 +59,6 @@ class Individual(list):
     :param chromosome: list of allele
     .. py:classmethod:: asdf
     .. py:attribute:: name
-
-
-
-
     """
 
     def __init__(self, chromosome):
@@ -141,9 +142,24 @@ class Individual(list):
     # def __repr__(self):
     #    return(self.__str__())
 
+    # def __str__(self):
+    #     return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]),
+    #                                            self.fitness)
+
     def __str__(self):
-        return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]),
-                                               self.fitness)
+        summary_list = list()
+        for allele in self.chromosome:
+            if allele.vtype == 'bool':
+                if allele.value:
+                    summary_list.append('1')
+                else:
+                    summary_list.append('0')
+            else:
+                summary_list.append(str(allele.value))
+
+        # return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]),
+        return "{:>12}; {}".format(self.hash, "|".join(summary_list))
+
 
     def update(self):
         """Check on the status of the process, update if necessary
