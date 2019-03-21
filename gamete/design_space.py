@@ -329,12 +329,12 @@ class Variable():
         elif not self.ordered:
             ordStr = "Unordered"
 
-        return "{} = {} length: '{}', {}, {}, {}".format(
+        return "{} = {} length: '{}', {}, {}".format(
                                  self.name,
                                  generatedValueStr,
                                  len(self.variable_tuple),
                                  shortTupleString,
-                                 id(self),
+                                 # id(self),
                                  self.vtype,
                                  )
 
@@ -350,22 +350,15 @@ class Variable():
         Ordering does not matter, will simply return values in the order of the tuple regardless
         """
         if self.iterIndex < len(self.variable_tuple):
-            # This is 0 at start
             self._index = self.iterIndex
-            #self.value = self.variable_tuple[self.iterIndex]
         else:
             raise StopIteration
 
         self.iterIndex += 1
 
-        #newValue = self.value
-
-        #return Variable(self.name, self.variable_tuple,self.ordered,self.value)
-
         return self
 
     def __iter__(self):
-        # Start iteration at 0
         self.iterIndex = 0
         return self
 
@@ -402,32 +395,25 @@ class DesignSpace(object):
                 self.positions.append(cnt)
                 cnt +=1
 
-        #self.objectives = objectives
-        if 0:
-            self.dimension = self.get_dimension()
-            self.cardinality = self.get_cardinality()
 
 
-            logging.info("Init {0}".format(self))
 
+        for var in self.basis_set:
+            assert var.name not in ["hash", "start", "finish"]
 
-            for var in self.basis_set:
-                assert var.name not in ["hash", "start", "finish"]
-
-
-    # Representing the space -------------
 
     def print_design_space(self):
-        for var in self.basis_set:
-            print(var)
+        for var_def in zip(self.positions, self.variable_set, self.basis_set):
+            print(var_def)
 
     def __str__(self):
-        return "DesignSpace: Dimension: {0}, Cardinality: {1}".format(self.dimension,self.cardinality)
+        return "DesignSpace: Dimension: {0}, Cardinality: {1}".format(self.dimension, self.cardinality)
 
     def __repr__(self):
         return self.__str__()
 
-    def get_cardinality(self):
+    @property
+    def cardinality(self):
         """
         The cardinality of a set is a measure of the "number of elements of the set"
         """
@@ -436,7 +422,8 @@ class DesignSpace(object):
             size *= len(var)
         return size
 
-    def get_dimension(self):
+    @property
+    def dimension(self):
         """
         The definition of dimension of a space is the number of vectors in a basis
         The dimension of a vector space is the number of vectors in any basis for the space

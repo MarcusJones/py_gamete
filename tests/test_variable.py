@@ -2,7 +2,6 @@ import pytest
 import gamete.design_space as dspace
 import decimal
 def test_variable():
-    assert True
 
     NDIM = 3
     # BOUND_LOW, BOUND_UP = 0.0, 1.0
@@ -31,6 +30,11 @@ def test_variable():
     variable_lists = [vset_bool, vset_ranged]
 
     this_ds = dspace.DesignSpace(variable_lists)
+
+    print(this_ds)
+
+    this_ds.print_design_space()
+
 
 
 
