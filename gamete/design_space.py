@@ -366,9 +366,6 @@ class Variable():
         self.iterIndex = 0
         return self
 
-
-
-
 class DesignSpace(object):
 
     def __init__(self, variable_lists):
@@ -427,12 +424,13 @@ class DesignSpace(object):
         """
         return len(self.basis_set)
 
-    def gen_chromosome(self):
-        chromosome = list()
-        for var, chromo_name in zip(self.basis_set, self.variable_set):
+    def gen_genes(self):
+        genes = list()
+        for i, (var, chromo_name) in enumerate(zip(self.basis_set, self.variable_set)):
             this_allele = var.return_random_allele2(chromo_name)
-            chromosome.append(this_allele)
-        return chromosome
+            this_allele.locus = i
+            genes.append(this_allele)
+        return genes
         # this_ind = self.individual(chromosome=chromosome)
 
 

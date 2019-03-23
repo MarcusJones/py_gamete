@@ -3,7 +3,7 @@ import gamete.design_space as des_space
 import gamete.evolution_space as evo_space
 import decimal
 
-# def test_variable():
+def test_variable():
 
     NDIM = 3
     # BOUND_LOW, BOUND_UP = 0.0, 1.0
@@ -42,11 +42,13 @@ import decimal
 
     # this_allele.vtype
 
-    this_chromo = this_ds.gen_chromosome()
+    genes = this_ds.gen_genes()
 
-    this_ind = evo_space.Genome(this_chromo)
-    print(this_ind)
-
+    this_genome = evo_space.Genome(genes)
+    print(this_genome)
+    this_genome.print_genes()
+    exported = this_genome.export_genome()
+    print(exported)
 
 
 

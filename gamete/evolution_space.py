@@ -1,3 +1,11 @@
+
+from collections import defaultdict
+
+def default_to_regular(d):
+    if isinstance(d, defaultdict):
+        d = {k: default_to_regular(v) for k, v in d.items()}
+    return d
+
 class Allele(object):
     """
     Init Attributes
@@ -61,13 +69,13 @@ class Genome(list):
     .. py:attribute:: name
     """
 
-    def __init__(self, chromosome):
+    def __init__(self, genes):
 
-        for val in chromosome:
+        for val in genes:
             assert type(val) == Allele
 
         list_items = list()
-        for gene in chromosome:
+        for gene in genes:
             if gene.vtype == 'float':
                 list_items.append(float(gene.val_str))
             elif gene.vtype == 'string':
@@ -80,7 +88,7 @@ class Genome(list):
                 raise Exception("{}".format(gene.vtype))
         super(Genome, self).__init__(list_items)
 
-        self.chromosome = chromosome
+        self.genes = genes
         # self.fitness = fitness
 
         self.start_time = None
@@ -95,19 +103,19 @@ class Genome(list):
         return self.__hash__()
 
     def clone(self):
-        new_chromo = list()
-        for allele in self.chromosome:
-            new_chromo.append(
+        new_genes = list()
+        for allele in self.genes:
+            new_genes.append(
                 Allele(allele.name, allele.locus, allele.vtype, allele.value, allele.index, allele.ordered))
 
-        cloned_Ind = Genome(new_chromo, deepcopy(self.fitness))
+        cloned_Ind = Genome(new_genes, deepcopy(self.fitness))
         assert (cloned_Ind is not self)
         assert (cloned_Ind.fitness is not self.fitness)
         return cloned_Ind
 
     def re_init(self):
         list_items = list()
-        for gene in self.chromosome:
+        for gene in self.genes:
             if gene.vtype == 'float':
                 list_items.append(float(gene.val_str))
             elif gene.vtype == 'string':
@@ -133,7 +141,7 @@ class Genome(list):
         But this would be expensive and complicated to store in a database
         The hash compresses this information to an integer value.
         """
-        index_list = [allele.index for allele in self.chromosome]
+        index_list = [allele.index for allele in self.genes]
         return hash(tuple(index_list))
 
     def __eq__(self, other):
@@ -150,7 +158,7 @@ class Genome(list):
 
     def __str__(self):
         summary_list = list()
-        for allele in self.chromosome:
+        for allele in self.genes:
             if allele.vtype == 'bool':
                 if allele.value:
                     summary_list.append('1')
@@ -162,6 +170,23 @@ class Genome(list):
         # return "{:>12}; {}, fitness:{}".format(self.hash, ", ".join([var.this_val_str() for var in self.chromosome]),
         return "{:>12}; {}".format(self.hash, "|".join(summary_list))
 
+    def print_genes(self):
+        # for gene in self.genes
+        for allele in self.genes:
+            print(allele)
+
+    def export_genome(self):
+        export_dict = defaultdict(list)
+        for allele in self.genes:
+            export_dict[allele.chromo_name].append({
+                'name': allele.name,
+                'locus': allele.locus,
+                'vtype': allele.vtype,
+                'value': allele.value,
+                'index': allele.index,
+                'ordered': allele.ordered
+            })
+        return default_to_regular(export_dict)
 
     def update(self):
         """Check on the status of the process, update if necessary
