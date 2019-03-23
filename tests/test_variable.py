@@ -44,7 +44,7 @@ import decimal
 
     this_chromo = this_ds.gen_chromosome()
 
-    this_ind = evo_space.Individual(this_chromo)
+    this_ind = evo_space.Genome(this_chromo)
     print(this_ind)
 
 

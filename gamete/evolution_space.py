@@ -51,7 +51,7 @@ class Allele(object):
             return "{}[{}]={}".format(self.name, self.index, self.val_str)
 
 
-class Individual(list):
+class Genome(list):
     """An individual is composed of a list of alleles (chromosome).
     Each gene is an instance of the Variable class.
     The individual class inherits list (slicing, assignment, mutability, etc.).
@@ -74,9 +74,11 @@ class Individual(list):
                 list_items.append(gene.val_str)
             elif gene.vtype == 'bool':
                 list_items.append(gene.val_str)
+            elif gene.vtype == 'int':
+                list_items.append(gene.val_str)
             else:
                 raise Exception("{}".format(gene.vtype))
-        super(Individual, self).__init__(list_items)
+        super(Genome, self).__init__(list_items)
 
         self.chromosome = chromosome
         # self.fitness = fitness
@@ -98,7 +100,7 @@ class Individual(list):
             new_chromo.append(
                 Allele(allele.name, allele.locus, allele.vtype, allele.value, allele.index, allele.ordered))
 
-        cloned_Ind = Individual(new_chromo, deepcopy(self.fitness))
+        cloned_Ind = Genome(new_chromo, deepcopy(self.fitness))
         assert (cloned_Ind is not self)
         assert (cloned_Ind.fitness is not self.fitness)
         return cloned_Ind
