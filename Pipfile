@@ -10,6 +10,7 @@ sqlalchemy = "*"
 deap = "*"
 gamete = {editable = true,path = "."}
 pytest = "*"
+deprecated = "*"
 
 [requires]
 python_version = "3.6"

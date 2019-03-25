@@ -1,4 +1,4 @@
-
+from deprecated import deprecated
 from collections import defaultdict
 
 def default_to_regular(d):
@@ -102,6 +102,7 @@ class Genome(list):
         """This is the unique identifier for this individual. """
         return self.__hash__()
 
+    @deprecated
     def clone(self):
         new_genes = list()
         for allele in self.genes:
@@ -113,6 +114,7 @@ class Genome(list):
         assert (cloned_Ind.fitness is not self.fitness)
         return cloned_Ind
 
+    @deprecated
     def re_init(self):
         list_items = list()
         for gene in self.genes:
@@ -124,6 +126,7 @@ class Genome(list):
                 raise Exception("{}".format(gene.vtype))
         super(individual, self).__init__(list_items)
 
+    @deprecated
     def recreate_fitness(self):
         raise
         fit_vals = list()
@@ -188,6 +191,7 @@ class Genome(list):
             })
         return default_to_regular(export_dict)
 
+    @deprecated()
     def update(self):
         """Check on the status of the process, update if necessary
         """
